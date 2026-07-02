@@ -1,17 +1,39 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
+using UnityEngineInternal;
 
 public class Player : MonoBehaviour
 { 
     //lateral movement input
-    public Vector2 move;
+    private Vector2 move;
+    public bool jumpPressed = false;
+    public bool jumpReleased = false;
 
     private float facing = 1;
 
-    //movement variables
-    [Header("Movement settings")]
-    [SerializeField]private float WalkSpeed;
+    //check variables
+    private bool isGrounded;
 
+    [Header("Movement settings")]
+    [SerializeField] private float WalkSpeed;
+    [SerializeField] private float jumpForce;
+
+    [Header("Check settings")]
+    [SerializeField] private float groundCheckLength;
+    [SerializeField] private Transform groundCheckPos;
+
+    [Header("Physics settings")]
+    [SerializeField] private float jumpHalt;
+    [SerializeField] private float upGravity;
+    [SerializeField] private float downGravity;
+    [SerializeField] private float normalGravity;
+
+    [Header("Layers")]
+    [SerializeField] private LayerMask floor;
+
+    //components
     private Rigidbody2D rb;
     private PlayerInput input;
     private Transform transform;
@@ -28,7 +50,10 @@ public class Player : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        GroundCheck();
         Movement();
+        Jump();
+        ApplyVariableGravity();
     }
     //move player based on input and flip to face move direction
     private void Movement()
@@ -38,15 +63,64 @@ public class Player : MonoBehaviour
             FLip();
         else if (move.x > 0.1 && facing < 0)
             FLip();
-}
-    //save only x axis from move controls
-    private void OnMove(InputValue move)
-    {
-        this.move = move.Get<Vector2>(); 
     }
+    //jump physics
+    private void Jump()
+    {
+        if (jumpPressed && isGrounded)
+        {
+            jumpPressed = false;
+            rb.linearVelocityY = 0;
+            rb.AddForceY(jumpForce, ForceMode2D.Impulse);
+        }
+        if (jumpReleased && rb.linearVelocityY > 0.1)
+            rb.linearVelocityY *= jumpHalt;
+        
+        jumpReleased = false;
+    }
+    //save only x axis from move controls
+    private void OnMove(InputValue input)
+    {
+        move = input.Get<Vector2>(); 
+    }
+    //jump input logic
+    private void OnJump(InputValue input)
+    {
+        if (input.isPressed)
+            jumpPressed = input.isPressed;
+        else
+            jumpReleased = true;
+    }
+    //make player face opposite direction
     private void FLip()
     {
         facing = -transform.localScale.x;
         transform.localScale = new Vector3(facing, 1, 1);
+    }
+    //change gravity while on air for better feeling
+    private void ApplyVariableGravity()
+    {
+        if (rb.linearVelocityY > 0.1f)
+            rb.gravityScale = upGravity;
+        else if (rb.linearVelocityY < -0.1f)
+            rb.gravityScale = downGravity;
+        else
+            rb.gravityScale = normalGravity;
+    }
+    //check if player is touching the ground
+    //this uses a raycast but since flip moves the entire object and his sons raycast must come from the middle so we need to check both player sides
+    private void GroundCheck()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(groundCheckPos.position, Vector2.right, groundCheckLength, floor);
+        if(hit)
+            isGrounded = hit;
+        else
+            hit = Physics2D.Raycast(groundCheckPos.position, Vector2.left, groundCheckLength, floor);
+        isGrounded = hit;
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.orange;
+        Gizmos.DrawLine(groundCheckPos.position, groundCheckPos.position + new Vector3(groundCheckLength, 0));
     }
 }
