@@ -37,12 +37,14 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerInput input;
     private Transform transform;
+    private Animator anim;
     
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         input = GetComponent<PlayerInput>();
         transform = GetComponent<Transform>();
+        anim = GetComponent<Animator>();
     }
     void Update()
     {
@@ -54,6 +56,7 @@ public class Player : MonoBehaviour
         Movement();
         Jump();
         ApplyVariableGravity();
+        AnimStates();
     }
     //move player based on input and flip to face move direction
     private void Movement()
@@ -77,6 +80,28 @@ public class Player : MonoBehaviour
             rb.linearVelocityY *= jumpHalt;
         
         jumpReleased = false;
+    }
+    private void AnimStates()
+    {
+        if (isGrounded && Mathf.Abs(rb.linearVelocityX) > 0.1)
+            anim.SetBool("isRunning", true);
+        else
+            anim.SetBool("isRunning", false);
+
+        if (!isGrounded && rb.linearVelocityY > 0.1)
+            anim.SetBool("isJumping", true);
+        else
+            anim.SetBool("isJumping", false);
+
+        if (!isGrounded && rb.linearVelocityY < -0.1)
+            anim.SetBool("isFalling", true);
+        else
+            anim.SetBool("isFalling", false);
+
+        if (isGrounded && Mathf.Abs(rb.linearVelocityX) < 0.1)
+            anim.SetBool("isIdle", true);
+        else
+            anim.SetBool("isIdle", false);
     }
     //save only x axis from move controls
     private void OnMove(InputValue input)
