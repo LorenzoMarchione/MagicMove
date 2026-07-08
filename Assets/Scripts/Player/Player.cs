@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     private float facing = 1;
 
     //check variables
-    private bool isGrounded;
+    public bool isGrounded;
 
     [Header("Movement settings")]
     [SerializeField] private float WalkSpeed;
@@ -133,19 +133,14 @@ public class Player : MonoBehaviour
             rb.gravityScale = normalGravity;
     }
     //check if player is touching the ground
-    //this uses a raycast but since flip moves the entire object and his sons raycast must come from the middle so we need to check both player sides
     private void GroundCheck()
     {
-        RaycastHit2D hit = Physics2D.Raycast(groundCheckPos.position, Vector2.right, groundCheckLength, floor);
-        if(hit)
-            isGrounded = hit;
-        else
-            hit = Physics2D.Raycast(groundCheckPos.position, Vector2.left, groundCheckLength, floor);
+        Collider2D hit = Physics2D.OverlapBox(groundCheckPos.position, new Vector2(groundCheckLength, groundCheckLength), 0, floor);
         isGrounded = hit;
     }
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.orange;
-        Gizmos.DrawLine(groundCheckPos.position, groundCheckPos.position + new Vector3(groundCheckLength, 0));
+        Gizmos.DrawWireCube(groundCheckPos.position, new Vector3(groundCheckLength, groundCheckLength));
     }
 }
