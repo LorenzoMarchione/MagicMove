@@ -48,15 +48,14 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
-        
+        GroundCheck();
+        AnimStates();
     }
     private void FixedUpdate()
     {
-        GroundCheck();
         Movement();
         Jump();
         ApplyVariableGravity();
-        AnimStates();
     }
     //move player based on input and flip to face move direction
     private void Movement()

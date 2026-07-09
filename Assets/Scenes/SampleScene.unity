@@ -766,8 +766,8 @@ MonoBehaviour:
   IgnoreTimeScale: 0
   WorldUpOverride: {fileID: 0}
   ChannelMask: -1
-  UpdateMethod: 2
-  BlendUpdateMethod: 1
+  UpdateMethod: 0
+  BlendUpdateMethod: 0
   LensModeOverride:
     Enabled: 0
     DefaultMode: 2
@@ -9729,6 +9729,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1933479267}
+  - component: {fileID: 1933479268}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -9756,6 +9757,30 @@ Transform:
   - {fileID: 447202079}
   m_Father: {fileID: 2020010628}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1933479268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933479266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83bb52d8b81442847b68bc55625af407, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Parallax
+  layers:
+  - layerPos: {fileID: 737317707}
+    parallaxFactor: 1
+  - layerPos: {fileID: 266931867}
+    parallaxFactor: 0.9
+  - layerPos: {fileID: 1247564217}
+    parallaxFactor: 0.8
+  - layerPos: {fileID: 774817626}
+    parallaxFactor: 0.7
+  - layerPos: {fileID: 1468161616}
+    parallaxFactor: 0.1
+  camPos: {fileID: 519420032}
 --- !u!1 &2007524025
 GameObject:
   m_ObjectHideFlags: 0
