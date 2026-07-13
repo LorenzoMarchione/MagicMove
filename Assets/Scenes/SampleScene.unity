@@ -157,7 +157,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 8bbbc689dd153464a9635f4284890ced, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -407,16 +407,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79fdfc397d3272e489534d724d7f937f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
-  isGrounded: 0
   walkSpeed: 7.5
   runSpeed: 12.5
   jumpForce: 18
+  jumpWindowDuration: 0.2
   groundCheckLength: 0.71
   groundCheckPos: {fileID: 1140567116}
   jumpHalt: 0.5
   upGravity: 5
   downGravity: 3.5
   normalGravity: 1
+  slideDuration: 1
+  slideLockDuration: 0.2
+  slideSpeed: 10
   floor:
     serializedVersion: 2
     m_Bits: 64
