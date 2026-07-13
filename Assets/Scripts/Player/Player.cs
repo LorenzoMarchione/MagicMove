@@ -8,8 +8,9 @@ public class Player : MonoBehaviour
 { 
     //lateral movement input
     private Vector2 move;
-    public bool jumpPressed = false;
-    public bool jumpReleased = false;
+    private bool sprint = false;
+    private bool jumpPressed = false;
+    private bool jumpReleased = false;
 
     private float facing = 1;
 
@@ -17,7 +18,8 @@ public class Player : MonoBehaviour
     public bool isGrounded;
 
     [Header("Movement settings")]
-    [SerializeField] private float WalkSpeed;
+    [SerializeField] private float walkSpeed;
+    [SerializeField] private float runSpeed;
     [SerializeField] private float jumpForce;
 
     [Header("Check settings")]
@@ -60,7 +62,8 @@ public class Player : MonoBehaviour
     //move player based on input and flip to face move direction
     private void Movement()
     {
-        rb.linearVelocityX = WalkSpeed * move.x;
+        float targetSpeed = sprint? runSpeed : walkSpeed;
+        rb.linearVelocityX = targetSpeed * move.x;
         if (move.x < -0.1 && facing > 0)
             FLip();
         else if (move.x > 0.1 && facing < 0)
@@ -114,6 +117,13 @@ public class Player : MonoBehaviour
             jumpPressed = input.isPressed;
         else
             jumpReleased = true;
+    }
+    private void OnSprint(InputValue input)
+    {
+        if (input.isPressed)
+            sprint = true;
+        else
+            sprint = false;
     }
     //make player face opposite direction
     private void FLip()
