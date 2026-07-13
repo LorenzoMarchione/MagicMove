@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     //lateral movement input
     private Vector2 move;
     private bool sprint = false;
+    private bool tryCrouching = false;
     private bool crouching = false;
     private bool jumpPressed = false;
     private bool jumpReleased = false;
@@ -18,6 +19,7 @@ public class Player : MonoBehaviour
 
     //check variables
     private bool isGrounded;
+    public bool isUnderCeiling;
 
     [Header("Movement settings")]
     [SerializeField] private float walkSpeed;
@@ -29,7 +31,10 @@ public class Player : MonoBehaviour
 
     [Header("Check settings")]
     [SerializeField] private float groundCheckLength;
+    [SerializeField] private float ceilingCheckWidth;
+    [SerializeField] private float ceilingCheckHeight;
     [SerializeField] private Transform groundCheckPos;
+    [SerializeField] private Transform ceilingCheckPos;
 
     [Header("Physics settings")]
     [SerializeField] private float jumpHalt;
@@ -44,6 +49,13 @@ public class Player : MonoBehaviour
     private bool sliding = false;
     private bool slideLock = false;
 
+    [Header("Crouch hitbox")]
+    [SerializeField] private float crouchHitboxYMult = 0.5f;
+    private float normalHitboxY;
+    private float crouchHitboxY;
+    private float normalOffset;
+    private float crouchOffset;
+
     [Header("Layers")]
     [SerializeField] private LayerMask floor;
 
@@ -52,6 +64,7 @@ public class Player : MonoBehaviour
     private PlayerInput input;
     private Transform transform;
     private Animator anim;
+    private BoxCollider2D box;
     
     void Start()
     {
@@ -59,10 +72,18 @@ public class Player : MonoBehaviour
         input = GetComponent<PlayerInput>();
         transform = GetComponent<Transform>();
         anim = GetComponent<Animator>();
+        box = GetComponent<BoxCollider2D>();
+
+        //crouch hitbox setters
+        normalHitboxY = box.size.y;
+        normalOffset = box.offset.y;
+        crouchHitboxY = box.size.y * crouchHitboxYMult;
+        crouchOffset = box.offset.y - crouchHitboxY / 2;
     }
     void Update()
     {
         GroundCheck();
+        CeilingCheck();
         AnimStates();
     }
     private void FixedUpdate()
@@ -102,13 +123,28 @@ public class Player : MonoBehaviour
     //start sliding state 
     private void CrouchSlide()
     {
-        if(crouching && jumpPressed && !sliding && !slideLock)
+        crouching = tryCrouching || isUnderCeiling;
+        if (crouching && jumpPressed && !sliding && !slideLock)
         {
             StartCoroutine(Slide());
             jumpPressed = false;
         }
-        else if(sliding)
+        else if (sliding)
+        {
             rb.linearVelocityX = facing * slideSpeed;
+            box.size = new Vector2(box.size.x, crouchHitboxY);
+            box.offset = new Vector2(box.offset.x, crouchOffset);
+        }
+        else if (crouching)
+        {
+            box.size = new Vector2(box.size.x, crouchHitboxY);
+            box.offset = new Vector2(box.offset.x, crouchOffset);
+        }
+        else
+        {
+            box.size = new Vector2(box.size.x, normalHitboxY);
+            box.offset = new Vector2(box.offset.x, normalOffset);
+        }
     }
     //all animation checks
     private void AnimStates()
@@ -124,7 +160,7 @@ public class Player : MonoBehaviour
     private void OnMove(InputValue input)
     {
         move = input.Get<Vector2>(); 
-        crouching = move.y < -0.1;
+        tryCrouching = move.y < -0.1;
     }
     //jump input logic
     private void OnJump(InputValue input)
@@ -184,9 +220,16 @@ public class Player : MonoBehaviour
         Collider2D hit = Physics2D.OverlapBox(groundCheckPos.position, new Vector2(groundCheckLength, groundCheckLength), 0, floor);
         isGrounded = hit;
     }
+    private void CeilingCheck()
+    {
+        Collider2D hit = Physics2D.OverlapBox(ceilingCheckPos.position, new Vector2(ceilingCheckWidth, ceilingCheckHeight), 0, floor);
+        isUnderCeiling = hit;
+    }
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.orange;
         Gizmos.DrawWireCube(groundCheckPos.position, new Vector3(groundCheckLength, groundCheckLength));
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(ceilingCheckPos.position, new Vector3(ceilingCheckWidth, ceilingCheckHeight));
     }
 }
