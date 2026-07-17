@@ -6,25 +6,32 @@ using UnityEngine.Rendering;
 using UnityEngineInternal;
 
 public class Player : MonoBehaviour
-{ 
-    //lateral movement input
-    private Vector2 move;
-    private bool sprint = false;
-    private bool tryCrouching = false;
-    private bool crouching = false;
-    private bool jumpPressed = false;
-    private bool jumpReleased = false;
+{
+    //different player states to use
+    private PlayerState currentState;
+    public PlayerIdleState idleState;
+    public PlayerRunState runState;
+    public PlayerJumpState jumpState;
+    public PlayerFallState fallState;
 
-    private float facing = 1;
+    //movement input
+    public Vector2 move;
+    public bool sprint = false;
+    public bool tryCrouching = false;
+    public bool crouching = false;
+    public bool jumpPressed = false;
+    public bool jumpReleased = false;
+
+    public float facing = 1;
 
     //check variables
-    private bool isGrounded;
-    public bool isUnderCeiling;
+    public bool IsGrounded { get; private set; }
+    public bool IsUnderCeiling { get; private set; }
 
     [Header("Movement settings")]
-    [SerializeField] private float walkSpeed;
-    [SerializeField] private float runSpeed;
-    [SerializeField] private float jumpForce;
+    public float walkSpeed;
+    public float runSpeed;
+    public float jumpForce;
 
     [Header("Jump settings")]
     [SerializeField] private float jumpWindowDuration;
@@ -37,10 +44,10 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform ceilingCheckPos;
 
     [Header("Physics settings")]
-    [SerializeField] private float jumpHalt;
-    [SerializeField] private float upGravity;
-    [SerializeField] private float downGravity;
-    [SerializeField] private float normalGravity;
+    public float jumpHalt;
+    public float upGravity;
+    public float downGravity;
+    public float normalGravity;
 
     [Header("Slide settings")]
     [SerializeField] private float slideDuration;
@@ -60,19 +67,28 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask floor;
 
     //components
-    private Rigidbody2D rb;
-    private PlayerInput input;
-    private Transform transform;
-    private Animator anim;
-    private BoxCollider2D box;
+    public Rigidbody2D rb;
+    public PlayerInput input;
+    public Transform transform;
+    public Animator anim;
+    public CapsuleCollider2D box;
     
     void Start()
     {
+        //component setters
         rb = GetComponent<Rigidbody2D>();
         input = GetComponent<PlayerInput>();
         transform = GetComponent<Transform>();
         anim = GetComponent<Animator>();
-        box = GetComponent<BoxCollider2D>();
+        box = GetComponent<CapsuleCollider2D>();
+
+        //creating to be used states
+        idleState = new PlayerIdleState(this);
+        runState = new PlayerRunState(this);
+        jumpState = new PlayerJumpState(this);
+        fallState = new PlayerFallState(this);
+
+        ChangeState(idleState);
 
         //crouch hitbox setters
         normalHitboxY = box.size.y;
@@ -82,48 +98,28 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
+        currentState.Update();
         GroundCheck();
         CeilingCheck();
-        AnimStates();
     }
     private void FixedUpdate()
     {
+        currentState.FixedUpdate();
         CrouchSlide();
-        if (!sliding)
-        {
-            Movement();
-            Jump();
-        }
-        ApplyVariableGravity();
     }
-    //move player based on move input and sprint input, also flip to face move direction
-    private void Movement()
+    public void ChangeState(PlayerState state)
     {
-        float targetSpeed = sprint? runSpeed : walkSpeed;
-        rb.linearVelocityX = targetSpeed * move.x;
-        if (move.x < -0.1 && facing > 0)
-            FLip();
-        else if (move.x > 0.1 && facing < 0)
-            FLip();
+        if (currentState != null)
+            currentState.Exit();
+        currentState = state;
+        currentState.Enter();
     }
-    //jump physics
-    private void Jump()
-    {
-        if (jumpPressed && isGrounded && !crouching)
-        {
-            jumpPressed = false;
-            rb.linearVelocityY = 0;
-            rb.AddForceY(jumpForce, ForceMode2D.Impulse);
-        }
-        if (jumpReleased && rb.linearVelocityY > 0.1)
-            rb.linearVelocityY *= jumpHalt;
-        
-        jumpReleased = false;
-    }
+
+
     //start sliding state 
     private void CrouchSlide()
     {
-        crouching = tryCrouching || isUnderCeiling;
+        crouching = tryCrouching || IsUnderCeiling;
         if (crouching && jumpPressed && !sliding && !slideLock)
         {
             StartCoroutine(Slide());
@@ -149,12 +145,12 @@ public class Player : MonoBehaviour
     //all animation checks
     private void AnimStates()
     {
-        anim.SetBool("isRunning", isGrounded && Mathf.Abs(rb.linearVelocityX) > 0.1 && !crouching);
-        anim.SetBool("isJumping", !isGrounded && rb.linearVelocityY > 0.1);
-        anim.SetBool("isFalling", !isGrounded && rb.linearVelocityY < -0.1);
-        anim.SetBool("isIdle", isGrounded && Mathf.Abs(rb.linearVelocityX) < 0.1 && !crouching);
-        anim.SetBool("isCrouching", isGrounded && crouching && !sliding);
-        anim.SetBool("isSliding", isGrounded && sliding);
+        //anim.SetBool("isRunning", IsGrounded && Mathf.Abs(rb.linearVelocityX) > 0.1 && !crouching);
+        //anim.SetBool("isJumping", !IsGrounded && rb.linearVelocityY > 0.1);
+        //anim.SetBool("isFalling", !IsGrounded && rb.linearVelocityY < -0.1);
+        //anim.SetBool("isIdle", IsGrounded && Mathf.Abs(rb.linearVelocityX) < 0.1 && !crouching);
+        anim.SetBool("isCrouching", IsGrounded && crouching && !sliding);
+        anim.SetBool("isSliding", IsGrounded && sliding);
     }
     //move input and crouch check
     private void OnMove(InputValue input)
@@ -199,31 +195,21 @@ public class Player : MonoBehaviour
         slideLock = false;
     }
     //make player face opposite direction
-    private void FLip()
+    public void FLip()
     {
         facing = -transform.localScale.x;
         transform.localScale = new Vector3(facing, 1, 1);
-    }
-    //change gravity while on air for better feeling
-    private void ApplyVariableGravity()
-    {
-        if (rb.linearVelocityY > 0.1f)
-            rb.gravityScale = upGravity;
-        else if (rb.linearVelocityY < -0.1f)
-            rb.gravityScale = downGravity;
-        else
-            rb.gravityScale = normalGravity;
     }
     //check if player is touching the ground
     private void GroundCheck()
     {
         Collider2D hit = Physics2D.OverlapBox(groundCheckPos.position, new Vector2(groundCheckLength, groundCheckLength), 0, floor);
-        isGrounded = hit;
+        IsGrounded = hit;
     }
     private void CeilingCheck()
     {
         Collider2D hit = Physics2D.OverlapBox(ceilingCheckPos.position, new Vector2(ceilingCheckWidth, ceilingCheckHeight), 0, floor);
-        isUnderCeiling = hit;
+        IsUnderCeiling = hit;
     }
     private void OnDrawGizmosSelected()
     {
