@@ -19,7 +19,9 @@ public class PlayerIdleState : PlayerState
             player.ChangeState(player.runState);
         else if (JumpPressed)
             player.ChangeState(player.jumpState);
-        else if (!player.IsGrounded && rb.linearVelocityY < -0.5)
+        else if (TryCrouch || player.IsUnderCeiling)
+            player.ChangeState(player.crouchState);
+        else if (!player.IsGrounded && rb.linearVelocityY < -9)
             player.ChangeState(player.fallState);
     }
     public override void Exit()

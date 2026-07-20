@@ -16,7 +16,9 @@ public class PlayerRunState : PlayerState
         //changestate logic
         if (JumpPressed)
             player.ChangeState(player.jumpState);
-        else if (!player.IsGrounded && rb.linearVelocityY < -0.5)
+        else if (TryCrouch || player.IsUnderCeiling)
+            player.ChangeState(player.crouchState);
+        else if (!player.IsGrounded && rb.linearVelocityY < -9)
             player.ChangeState(player.fallState);
         else if (Mathf.Abs(Move.x) < 0.1)
             player.ChangeState(player.idleState);

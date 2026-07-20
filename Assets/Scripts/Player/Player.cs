@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     public PlayerRunState runState;
     public PlayerJumpState jumpState;
     public PlayerFallState fallState;
+    public PlayerCrouchState crouchState;
+    public PlayerSlideState slideState;
 
     //movement input
     public Vector2 move;
@@ -31,6 +33,7 @@ public class Player : MonoBehaviour
     [Header("Movement settings")]
     public float walkSpeed;
     public float runSpeed;
+    public float crouchSpeed;
     public float jumpForce;
 
     [Header("Jump settings")]
@@ -50,18 +53,17 @@ public class Player : MonoBehaviour
     public float normalGravity;
 
     [Header("Slide settings")]
-    [SerializeField] private float slideDuration;
-    [SerializeField] private float slideLockDuration;
-    [SerializeField] private float slideSpeed;
-    private bool sliding = false;
-    private bool slideLock = false;
+    public float slideDuration;
+    public float slideLockDuration;
+    public float slideSpeed;
+    public bool slideLock = false;
 
     [Header("Crouch hitbox")]
     [SerializeField] private float crouchHitboxYMult = 0.5f;
-    private float normalHitboxY;
-    private float crouchHitboxY;
-    private float normalOffset;
-    private float crouchOffset;
+    public float normalHitboxY;
+    public float crouchHitboxY;
+    public float normalOffset;
+    public float crouchOffset;
 
     [Header("Layers")]
     [SerializeField] private LayerMask floor;
@@ -87,6 +89,8 @@ public class Player : MonoBehaviour
         runState = new PlayerRunState(this);
         jumpState = new PlayerJumpState(this);
         fallState = new PlayerFallState(this);
+        crouchState = new PlayerCrouchState(this);
+        slideState = new PlayerSlideState(this);
 
         ChangeState(idleState);
 
@@ -105,7 +109,6 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         currentState.FixedUpdate();
-        CrouchSlide();
     }
     public void ChangeState(PlayerState state)
     {
@@ -114,48 +117,14 @@ public class Player : MonoBehaviour
         currentState = state;
         currentState.Enter();
     }
-
-
-    //start sliding state 
-    private void CrouchSlide()
-    {
-        crouching = tryCrouching || IsUnderCeiling;
-        if (crouching && jumpPressed && !sliding && !slideLock)
-        {
-            StartCoroutine(Slide());
-            jumpPressed = false;
-        }
-        else if (sliding)
-        {
-            rb.linearVelocityX = facing * slideSpeed;
-            box.size = new Vector2(box.size.x, crouchHitboxY);
-            box.offset = new Vector2(box.offset.x, crouchOffset);
-        }
-        else if (crouching)
-        {
-            box.size = new Vector2(box.size.x, crouchHitboxY);
-            box.offset = new Vector2(box.offset.x, crouchOffset);
-        }
-        else
-        {
-            box.size = new Vector2(box.size.x, normalHitboxY);
-            box.offset = new Vector2(box.offset.x, normalOffset);
-        }
-    }
-    //all animation checks
-    private void AnimStates()
-    {
-        //anim.SetBool("isRunning", IsGrounded && Mathf.Abs(rb.linearVelocityX) > 0.1 && !crouching);
-        //anim.SetBool("isJumping", !IsGrounded && rb.linearVelocityY > 0.1);
-        //anim.SetBool("isFalling", !IsGrounded && rb.linearVelocityY < -0.1);
-        //anim.SetBool("isIdle", IsGrounded && Mathf.Abs(rb.linearVelocityX) < 0.1 && !crouching);
-        anim.SetBool("isCrouching", IsGrounded && crouching && !sliding);
-        anim.SetBool("isSliding", IsGrounded && sliding);
-    }
     //move input and crouch check
     private void OnMove(InputValue input)
     {
-        move = input.Get<Vector2>(); 
+        move = input.Get<Vector2>();
+        if (move.x < 0)
+            move.x = -1;
+        if (move.x > 0)
+            move.x = 1;
         tryCrouching = move.y < -0.1;
     }
     //jump input logic
@@ -184,15 +153,15 @@ public class Player : MonoBehaviour
         if(jumpPressed)
             jumpPressed = false;
     }
-    //coroutine controlling slide timers
-    private IEnumerator Slide()
+    private IEnumerator SlideLocked()
     {
-        sliding = true;
-        yield return new WaitForSeconds(slideDuration);
-        sliding = false;
         slideLock = true;
         yield return new WaitForSeconds(slideLockDuration);
         slideLock = false;
+    }
+    public void LockSlide()
+    {
+        StartCoroutine(SlideLocked());
     }
     //make player face opposite direction
     public void FLip()
@@ -206,6 +175,7 @@ public class Player : MonoBehaviour
         Collider2D hit = Physics2D.OverlapBox(groundCheckPos.position, new Vector2(groundCheckLength, groundCheckLength), 0, floor);
         IsGrounded = hit;
     }
+    //check if player has something directly over his head
     private void CeilingCheck()
     {
         Collider2D hit = Physics2D.OverlapBox(ceilingCheckPos.position, new Vector2(ceilingCheckWidth, ceilingCheckHeight), 0, floor);
