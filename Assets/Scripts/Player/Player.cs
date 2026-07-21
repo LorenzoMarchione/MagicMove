@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     public bool crouching = false;
     public bool jumpPressed = false;
     public bool jumpReleased = false;
+    public bool attackPressed = false;
 
     public float facing = 1;
 
@@ -36,17 +37,20 @@ public class Player : MonoBehaviour
     public float crouchSpeed;
     public float jumpForce;
 
-    [Header("Jump settings")]
-    [SerializeField] private float jumpWindowDuration;
 
-    [Header("Check settings")]
+    [Header("Floor Check settings")]
     [SerializeField] private float groundCheckLength;
+    [SerializeField] private Transform groundCheckPos;
+    [SerializeField] private LayerMask floor;
+
+    [Header("Ceiling Check settings")]
     [SerializeField] private float ceilingCheckWidth;
     [SerializeField] private float ceilingCheckHeight;
-    [SerializeField] private Transform groundCheckPos;
     [SerializeField] private Transform ceilingCheckPos;
+    //possible new layer for ceiling in the future
 
-    [Header("Physics settings")]
+    [Header("Jump and fall settings")]
+    [SerializeField] private float jumpWindowDuration;
     public float jumpHalt;
     public float upGravity;
     public float downGravity;
@@ -58,15 +62,18 @@ public class Player : MonoBehaviour
     public float slideSpeed;
     public bool slideLock = false;
 
+    [Header("Attack settings")]
+    [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private Transform hitPos;
+    [SerializeField] private float hitRadius;
+    public int atkDamage;
+
     [Header("Crouch hitbox")]
     [SerializeField] private float crouchHitboxYMult = 0.5f;
     public float normalHitboxY;
     public float crouchHitboxY;
     public float normalOffset;
     public float crouchOffset;
-
-    [Header("Layers")]
-    [SerializeField] private LayerMask floor;
 
     //components
     public Rigidbody2D rb;
@@ -146,6 +153,13 @@ public class Player : MonoBehaviour
         else
             sprint = false;
     }
+    private void OnAttack(InputValue input)
+    {
+        Collider2D hit = Physics2D.OverlapCircle(hitPos.position, hitRadius, enemyLayer);
+        if(hit != null)
+            hit.gameObject.GetComponent<Health>().ChangeHealth(-atkDamage);
+        attackPressed = true;
+    }
     //coroutine to allow jumping with slight earlier input
     private IEnumerator JumpWindow()
     {
@@ -187,5 +201,7 @@ public class Player : MonoBehaviour
         Gizmos.DrawWireCube(groundCheckPos.position, new Vector3(groundCheckLength, groundCheckLength));
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(ceilingCheckPos.position, new Vector3(ceilingCheckWidth, ceilingCheckHeight));
+        Gizmos.color= Color.red;
+        Gizmos.DrawWireSphere(hitPos.position, hitRadius);
     }
 }
