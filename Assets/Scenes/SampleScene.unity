@@ -393,17 +393,12 @@ MonoBehaviour:
   slideLockDuration: 0.5
   slideSpeed: 10
   slideLock: 0
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  hitPos: {fileID: 1412906971}
-  hitRadius: 1
-  atkDamage: 0
   crouchHitboxYMult: 0.5
   normalHitboxY: 0
   crouchHitboxY: 0
   normalOffset: 0
   crouchOffset: 0
+  combat: {fileID: 0}
   rb: {fileID: 0}
   input: {fileID: 0}
   transform: {fileID: 0}
@@ -480,6 +475,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8d128d74678f994f92398e1493129ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Combat
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  hitPos: {fileID: 1412906971}
+  hitRadius: 1
+  atkCooldown: 1
+  canAttack: 1
+  atkDamage: 10
 --- !u!1 &266931866
 GameObject:
   m_ObjectHideFlags: 0
