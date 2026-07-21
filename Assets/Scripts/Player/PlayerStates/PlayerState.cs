@@ -12,10 +12,13 @@ public abstract class PlayerState
     protected CapsuleCollider2D box;
     protected Player player;
 
+    protected Combat combat;
+
     //player inputs
     protected Vector2 Move { get => player.move; }
     protected bool Sprint { get => player.sprint; }
     protected bool TryCrouch { get => player.tryCrouching; }
+    protected bool AttackPressed { get => player.attackPressed; set => player.attackPressed = value; }
     protected bool JumpPressed { get => player.jumpPressed; set => player.jumpPressed = value;  }
     protected bool JumpReleased { get => player.jumpReleased; set => player.jumpReleased = value; }
 
@@ -26,6 +29,8 @@ public abstract class PlayerState
         tf = player.transform;
         anim = player.anim;
         box = player.box;
+
+        combat = player.combat;
     }
     public virtual void Enter() 
     { 

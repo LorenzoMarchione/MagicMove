@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     public PlayerFallState fallState;
     public PlayerCrouchState crouchState;
     public PlayerSlideState slideState;
+    public PlayerAttackState attackState;
 
     //movement input
     public Vector2 move;
@@ -62,12 +63,6 @@ public class Player : MonoBehaviour
     public float slideSpeed;
     public bool slideLock = false;
 
-    [Header("Attack settings")]
-    [SerializeField] private LayerMask enemyLayer;
-    [SerializeField] private Transform hitPos;
-    [SerializeField] private float hitRadius;
-    public int atkDamage;
-
     [Header("Crouch hitbox")]
     [SerializeField] private float crouchHitboxYMult = 0.5f;
     public float normalHitboxY;
@@ -75,7 +70,10 @@ public class Player : MonoBehaviour
     public float normalOffset;
     public float crouchOffset;
 
-    //components
+    //core components
+    public Combat combat;
+
+    //unity components
     public Rigidbody2D rb;
     public PlayerInput input;
     public Transform transform;
@@ -91,6 +89,8 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
         box = GetComponent<CapsuleCollider2D>();
 
+        combat = GetComponent<Combat>();
+
         //creating to be used states
         idleState = new PlayerIdleState(this);
         runState = new PlayerRunState(this);
@@ -98,6 +98,7 @@ public class Player : MonoBehaviour
         fallState = new PlayerFallState(this);
         crouchState = new PlayerCrouchState(this);
         slideState = new PlayerSlideState(this);
+        attackState = new PlayerAttackState(this);
 
         ChangeState(idleState);
 
@@ -124,6 +125,10 @@ public class Player : MonoBehaviour
         currentState = state;
         currentState.Enter();
     }
+    public void AnimationFinished()
+    {
+        currentState.OnAnimationFinished();
+    }
     //move input and crouch check
     private void OnMove(InputValue input)
     {
@@ -148,17 +153,11 @@ public class Player : MonoBehaviour
     //sprint button
     private void OnSprint(InputValue input)
     {
-        if (input.isPressed)
-            sprint = true;
-        else
-            sprint = false;
+        sprint = input.isPressed;
     }
     private void OnAttack(InputValue input)
     {
-        Collider2D hit = Physics2D.OverlapCircle(hitPos.position, hitRadius, enemyLayer);
-        if(hit != null)
-            hit.gameObject.GetComponent<Health>().ChangeHealth(-atkDamage);
-        attackPressed = true;
+        attackPressed = input.isPressed;
     }
     //coroutine to allow jumping with slight earlier input
     private IEnumerator JumpWindow()
@@ -201,7 +200,5 @@ public class Player : MonoBehaviour
         Gizmos.DrawWireCube(groundCheckPos.position, new Vector3(groundCheckLength, groundCheckLength));
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(ceilingCheckPos.position, new Vector3(ceilingCheckWidth, ceilingCheckHeight));
-        Gizmos.color= Color.red;
-        Gizmos.DrawWireSphere(hitPos.position, hitRadius);
     }
 }

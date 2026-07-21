@@ -14,7 +14,9 @@ public class PlayerRunState : PlayerState
     public override void Update()
     {
         //changestate logic
-        if (JumpPressed)
+        if (AttackPressed && combat.canAttack)
+            player.ChangeState(player.attackState);
+        else if (JumpPressed)
             player.ChangeState(player.jumpState);
         else if (TryCrouch || player.IsUnderCeiling)
             player.ChangeState(player.crouchState);

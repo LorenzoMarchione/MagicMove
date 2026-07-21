@@ -15,7 +15,9 @@ public class PlayerIdleState : PlayerState
     public override void Update()
     {
         //changestate logic
-        if (Mathf.Abs(Move.x) > 0.1)
+        if (AttackPressed && combat.canAttack)
+            player.ChangeState(player.attackState);
+        else if (Mathf.Abs(Move.x) > 0.1)
             player.ChangeState(player.runState);
         else if (JumpPressed)
             player.ChangeState(player.jumpState);
