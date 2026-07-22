@@ -9,6 +9,7 @@ public class Combat : MonoBehaviour
     [SerializeField] private Transform hitPos;
     [SerializeField] private float hitRadius;
     [SerializeField] private float atkCooldown;
+    [SerializeField] private Animator animFX;
     private float timer;
     public bool canAttack = true;
     public int atkDamage;
@@ -42,7 +43,10 @@ public class Combat : MonoBehaviour
         
         Collider2D hit = Physics2D.OverlapCircle(hitPos.position, hitRadius, enemyLayer);
         if (hit != null)
+        {
             hit.gameObject.GetComponent<Health>().ChangeHealth(-atkDamage);
+            animFX.Play("HitFX");
+        }
     }
     private void OnDrawGizmosSelected()
     {
