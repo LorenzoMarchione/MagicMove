@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 245028336}
   - component: {fileID: 245028335}
   - component: {fileID: 245028338}
+  - component: {fileID: 245028339}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -154,7 +155,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 100
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
@@ -372,6 +373,7 @@ MonoBehaviour:
   jumpPressed: 0
   jumpReleased: 0
   attackPressed: 0
+  castPressed: 0
   facing: 1
   walkSpeed: 7.5
   runSpeed: 12.5
@@ -485,6 +487,23 @@ MonoBehaviour:
   animFX: {fileID: 572867763}
   canAttack: 1
   atkDamage: 10
+--- !u!114 &245028339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245028329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9597398421af80443b636f87a1f9dbd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Magic
+  range: 5
+  playerRadius: 1
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &266931866
 GameObject:
   m_ObjectHideFlags: 0
@@ -6282,7 +6301,7 @@ CompositeCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:

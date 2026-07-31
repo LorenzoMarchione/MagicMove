@@ -19,6 +19,7 @@ public abstract class PlayerState
     protected bool Sprint { get => player.sprint; }
     protected bool TryCrouch { get => player.tryCrouching; }
     protected bool AttackPressed { get => player.attackPressed; set => player.attackPressed = value; }
+    protected bool CastPressed { get => player.castPressed; set => player.castPressed = value;  }
     protected bool JumpPressed { get => player.jumpPressed; set => player.jumpPressed = value;  }
     protected bool JumpReleased { get => player.jumpReleased; set => player.jumpReleased = value; }
 

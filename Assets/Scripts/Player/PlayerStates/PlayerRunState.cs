@@ -16,6 +16,8 @@ public class PlayerRunState : PlayerState
         //changestate logic
         if (AttackPressed && combat.canAttack)
             player.ChangeState(player.attackState);
+        else if (CastPressed)
+            player.ChangeState(player.spellCastState);
         else if (JumpPressed)
             player.ChangeState(player.jumpState);
         else if (TryCrouch || player.IsUnderCeiling)

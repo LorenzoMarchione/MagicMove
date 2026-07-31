@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     public PlayerCrouchState crouchState;
     public PlayerSlideState slideState;
     public PlayerAttackState attackState;
+    public PlayerSpellCastState spellCastState;
 
     //movement input
     public Vector2 move;
@@ -25,6 +26,7 @@ public class Player : MonoBehaviour
     public bool jumpPressed = false;
     public bool jumpReleased = false;
     public bool attackPressed = false;
+    public bool castPressed = false;
 
     public float facing = 1;
 
@@ -99,6 +101,7 @@ public class Player : MonoBehaviour
         crouchState = new PlayerCrouchState(this);
         slideState = new PlayerSlideState(this);
         attackState = new PlayerAttackState(this);
+        spellCastState = new PlayerSpellCastState(this);
 
         ChangeState(idleState);
 
@@ -158,6 +161,10 @@ public class Player : MonoBehaviour
     private void OnAttack(InputValue input)
     {
         attackPressed = input.isPressed;
+    }
+    private void OnSpellCast(InputValue input)
+    {
+        castPressed = input.isPressed;
     }
     //coroutine to allow jumping with slight earlier input
     private IEnumerator JumpWindow()
