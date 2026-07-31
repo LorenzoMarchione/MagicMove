@@ -16,7 +16,7 @@ public class PlayerRunState : PlayerState
         //changestate logic
         if (AttackPressed && combat.canAttack)
             player.ChangeState(player.attackState);
-        else if (CastPressed)
+        else if (CastPressed && magic.canCast)
             player.ChangeState(player.spellCastState);
         else if (JumpPressed)
             player.ChangeState(player.jumpState);

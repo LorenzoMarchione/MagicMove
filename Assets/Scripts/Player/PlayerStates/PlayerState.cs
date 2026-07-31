@@ -13,6 +13,7 @@ public abstract class PlayerState
     protected Player player;
 
     protected Combat combat;
+    protected Magic magic;
 
     //player inputs
     protected Vector2 Move { get => player.move; }
@@ -32,6 +33,7 @@ public abstract class PlayerState
         box = player.box;
 
         combat = player.combat;
+        magic = player.magic;
     }
     public virtual void Enter() 
     { 

@@ -74,6 +74,7 @@ public class Player : MonoBehaviour
 
     //core components
     public Combat combat;
+    public Magic magic;
 
     //unity components
     public Rigidbody2D rb;
@@ -92,6 +93,7 @@ public class Player : MonoBehaviour
         box = GetComponent<CapsuleCollider2D>();
 
         combat = GetComponent<Combat>();
+        magic = GetComponent<Magic>();
 
         //creating to be used states
         idleState = new PlayerIdleState(this);

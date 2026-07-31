@@ -10,7 +10,7 @@ public class Combat : MonoBehaviour
     [SerializeField] private float hitRadius;
     [SerializeField] private float atkCooldown;
     [SerializeField] private Animator animFX;
-    private float timer;
+    private float atkTimer;
     public bool canAttack = true;
     public int atkDamage;
 
@@ -21,18 +21,18 @@ public class Combat : MonoBehaviour
     }
     private void Update()
     {
-        if (timer > 0)
+        if (atkTimer > 0)
         {
-            timer -= Time.deltaTime;
+            atkTimer -= Time.deltaTime;
 
-            if(timer <= 0)
+            if(atkTimer <= 0)
                 canAttack = true;
         }
     }
     public void AttackAnimationFinished()
     {
         player.AnimationFinished();
-        timer = atkCooldown;
+        atkTimer = atkCooldown;
     }
     public void AttackTrigger()
     {
