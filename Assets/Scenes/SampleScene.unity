@@ -500,20 +500,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9597398421af80443b636f87a1f9dbd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Magic
+  player: {fileID: 0}
   castCooldown: 2
   canCast: 1
-  range: 7.5
-  playerRadius: 1
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  areaOfEffect: 100
-  sparkDamage: 5
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  sparkVFXPrefab: {fileID: 1070441158504919971, guid: b4d8af1c6e1af1f4daa3bdbf2cb033bf, type: 3}
-  sparkRayVFXPrefab: {fileID: 378502490805466427, guid: c3893316eead8f542a9ddc5ac478a5a9, type: 3}
+  spells:
+  - {fileID: 11400000, guid: 2122e51b88d14b943b344d04ae0f790c, type: 2}
+  - {fileID: 11400000, guid: e886b49e33bb0684094998be44b0f2d8, type: 2}
 --- !u!1001 &252001777
 PrefabInstance:
   m_ObjectHideFlags: 0
