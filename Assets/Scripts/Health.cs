@@ -20,7 +20,7 @@ public class Health : MonoBehaviour
         if(currentHealth > maxHealth) 
             currentHealth = maxHealth;
         
-        if(currentHealth > 0) 
+        if(currentHealth > 0 && amount < 0) 
             OnDamaged.Invoke();
         else if (currentHealth <= 0) 
             OnDeath.Invoke();

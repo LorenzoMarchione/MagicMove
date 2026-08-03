@@ -2,8 +2,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Spells/Teleport Spell")]
 public class SpellTeleportSO : SpellSO
 {
-    public float range;
-    public float playerRadius;
+    public float range = 7.5f;
+    public float playerRadius = 1f;
     public LayerMask obstacleLayer;
     public override void Cast(Player player)
     {

@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 245028335}
   - component: {fileID: 245028338}
   - component: {fileID: 245028339}
+  - component: {fileID: 245028340}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -504,8 +505,23 @@ MonoBehaviour:
   castCooldown: 2
   canCast: 1
   spells:
+  - {fileID: 11400000, guid: eec0e1f1977ff444c84719938dae354d, type: 2}
   - {fileID: 11400000, guid: 2122e51b88d14b943b344d04ae0f790c, type: 2}
   - {fileID: 11400000, guid: e886b49e33bb0684094998be44b0f2d8, type: 2}
+--- !u!114 &245028340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245028329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 529195d91118c5543955595bdc947137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  maxHealth: 100
+  currentHealth: 0
 --- !u!1001 &252001777
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -2,8 +2,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName ="Spells/Spark Spell")]
 public class SpellSparkSO : SpellSO
 {
-    public float areaOfEffect;
-    public int sparkDamage;
+    public float areaOfEffect = 5f;
+    public int sparkDamage = 5;
     public LayerMask enemyLayer;
     public GameObject sparkVFXPrefab;
     public GameObject sparkRayVFXPrefab;
