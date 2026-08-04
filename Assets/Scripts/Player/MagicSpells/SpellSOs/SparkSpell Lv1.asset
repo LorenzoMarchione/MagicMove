@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 155cc24803c88c44d9c90f6e22fc74fe, type: 3}
   m_Name: SparkSpell Lv1
   m_EditorClassIdentifier: Assembly-CSharp::SpellSparkSO
-  magic: {fileID: 0}
   name: Spark Lv1
-  icon: {fileID: 0}
+  icon: {fileID: -1388397485, guid: 827d165eeefdba1458e50f3ac204cb98, type: 3}
+  cooldown: 0
   areaOfEffect: 7
   sparkDamage: 5
   enemyLayer:

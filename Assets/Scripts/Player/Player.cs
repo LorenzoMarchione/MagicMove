@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     public PlayerAttackState attackState;
     public PlayerSpellCastState spellCastState;
 
-    //movement input
+    //input
     public Vector2 move;
     public bool sprint = false;
     public bool tryCrouching = false;
@@ -27,6 +27,8 @@ public class Player : MonoBehaviour
     public bool jumpReleased = false;
     public bool attackPressed = false;
     public bool castPressed = false;
+    public bool nextPressed = false;
+    public bool previousPressed = false;
 
     public float facing = 1;
 
@@ -167,6 +169,16 @@ public class Player : MonoBehaviour
     private void OnSpellCast(InputValue input)
     {
         castPressed = input.isPressed;
+    }
+    private void OnNext(InputValue input)
+    {
+        if (input.isPressed)
+            magic.NextSpell();
+    }
+    private void OnPrevious(InputValue input)
+    {
+        if(input.isPressed)
+            magic.PreviousSpell();
     }
     //coroutine to allow jumping with slight earlier input
     private IEnumerator JumpWindow()

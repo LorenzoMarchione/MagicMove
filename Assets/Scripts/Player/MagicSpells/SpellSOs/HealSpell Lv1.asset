@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HealSpell Lv1
   m_EditorClassIdentifier: Assembly-CSharp::SpellHealSO
   name: Heal Lv1
-  icon: {fileID: 0}
+  icon: {fileID: -949738008, guid: 827d165eeefdba1458e50f3ac204cb98, type: 3}
   cooldown: 0
   healAmount: 10
   healVFXPrefab: {fileID: 8978582378653268149, guid: a219e4dc25e3c2a4a96a719564fdda43, type: 3}
