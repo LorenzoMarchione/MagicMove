@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a50b1a35f6d7dd540a982675c6646955, type: 3}
   m_Name: TeleportSpell Lv1
   m_EditorClassIdentifier: Assembly-CSharp::SpellTeleportSO
-  name: Teleport Lv1
+  itemName: Teleport Spell Lv1
   icon: {fileID: 51463707, guid: 827d165eeefdba1458e50f3ac204cb98, type: 3}
   cooldown: 0
   range: 7.5

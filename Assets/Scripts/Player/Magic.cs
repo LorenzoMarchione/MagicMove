@@ -60,7 +60,7 @@ public class Magic : MonoBehaviour
         index++;
         if (index >= availableSpells.Count)
             index = 0;
-        spellUIManager.HighlightSpell(CurrentSpell);
+        HighlightCurrentSpell();
     }
     public void PreviousSpell()
     {
@@ -69,10 +69,17 @@ public class Magic : MonoBehaviour
         index--;
         if (index < 0)
             index = availableSpells.Count - 1;
-        spellUIManager.HighlightSpell(CurrentSpell);
+        HighlightCurrentSpell();
     }
     private void HighlightCurrentSpell()
     {
         spellUIManager.HighlightSpell(CurrentSpell);
+    }
+    public void LearnSpell(SpellSO spell)
+    {
+        if(!availableSpells.Contains(spell))
+            availableSpells.Add(spell);
+        spellUIManager.ShowSpellSlots(availableSpells);
+        HighlightCurrentSpell();
     }
 }

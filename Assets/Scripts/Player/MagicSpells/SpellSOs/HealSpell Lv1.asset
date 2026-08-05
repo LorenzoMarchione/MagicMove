@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f10b74083e19294388bde15390b86c8, type: 3}
   m_Name: HealSpell Lv1
   m_EditorClassIdentifier: Assembly-CSharp::SpellHealSO
-  name: Heal Lv1
+  itemName: Heal Spell Lv1
   icon: {fileID: -949738008, guid: 827d165eeefdba1458e50f3ac204cb98, type: 3}
   cooldown: 0
   healAmount: 10

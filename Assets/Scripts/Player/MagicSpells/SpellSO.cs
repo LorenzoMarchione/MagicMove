@@ -1,10 +1,10 @@
 using UnityEngine;
-public abstract class SpellSO : ScriptableObject
+public abstract class SpellSO : ItemSO
 {
     [Header("General Settings")]
-    public string name;
-    public Sprite icon;
     public float cooldown;
 
     public abstract void Cast(Player player);
+    public override void PickUp(Player player) => player.magic.LearnSpell(this);
+    
 }
