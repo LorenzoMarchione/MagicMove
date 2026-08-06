@@ -12,13 +12,11 @@ public class Magic : MonoBehaviour
     [Header("Spells")]
     [SerializeField]private List<SpellSO> availableSpells;
     public SpellSO CurrentSpell => availableSpells.Count > 0 ? availableSpells[index] : null;
+
+    private Dictionary<SpellSO, float> spellCooldowns = new Dictionary<SpellSO, float>();
+
     [SerializeField]private int index = 0;
 
-    [SerializeField] private float castCooldown;
-    private float castTimer;
-    public bool timeCast = true;
-    public bool canCast = false;
-    public bool hasCast = false;
 
 
     private void Start()
@@ -30,28 +28,23 @@ public class Magic : MonoBehaviour
     }
     private void Update()
     {
-        hasCast = CurrentSpell != null;
-        if(castTimer > 0)
-        {
-            castTimer -= Time.deltaTime;
-
-            if (castTimer <= 0)
-                timeCast = true;
-        }
-        canCast = hasCast && timeCast;
     }
     public void OnSpellAnimationFinished()
     {
-        castTimer = castCooldown;
         CastSpell();
         player.AnimationFinished();
     }
     private void CastSpell()
     {
-        if (!canCast)
+        if (!CanCast(CurrentSpell) || CurrentSpell == null)
             return;
         CurrentSpell.Cast(player);
-        canCast = false;
+        spellCooldowns[CurrentSpell] = Time.time + CurrentSpell.cooldown;
+        spellUIManager.StartSlotCooldoown(CurrentSpell, CurrentSpell.cooldown);
+    }
+    public bool CanCast(SpellSO spell)
+    {
+        return Time.time >= spellCooldowns[spell];
     }
     public void NextSpell()
     {
@@ -80,6 +73,8 @@ public class Magic : MonoBehaviour
         if(!availableSpells.Contains(spell))
             availableSpells.Add(spell);
         spellUIManager.ShowSpellSlots(availableSpells);
+        if(!spellCooldowns.ContainsKey(spell))
+            spellCooldowns.Add(spell, 0);
         HighlightCurrentSpell();
     }
 }

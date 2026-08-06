@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpellTeleportSO
   itemName: Teleport Spell Lv1
   icon: {fileID: 51463707, guid: 827d165eeefdba1458e50f3ac204cb98, type: 3}
-  cooldown: 0
+  cooldown: 7.5
   range: 7.5
   playerRadius: 1
   obstacleLayer:

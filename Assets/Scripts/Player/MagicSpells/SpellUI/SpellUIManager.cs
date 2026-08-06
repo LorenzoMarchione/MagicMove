@@ -23,4 +23,17 @@ public class SpellUIManager : MonoBehaviour
         foreach(SpellSlot slot in slots)
                 slot.SetHighlight(slot.Spell == spell);
     }
+    public void StartSlotCooldoown(SpellSO spell, float time)
+    {
+        if(spell == null) return;
+        foreach( SpellSlot slot in slots)
+        {
+            if(slot.Spell == spell)
+            {
+                slot.StartCooldown(time);
+                break;
+            }
+            
+        }
+    }
 }

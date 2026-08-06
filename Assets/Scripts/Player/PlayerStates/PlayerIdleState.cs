@@ -17,7 +17,7 @@ public class PlayerIdleState : PlayerState
         //changestate logic
         if (AttackPressed && combat.canAttack)
             player.ChangeState(player.attackState);
-        else if (CastPressed && magic.canCast)
+        else if (CastPressed && magic.CanCast(magic.CurrentSpell))
             player.ChangeState(player.spellCastState);
         else if (Mathf.Abs(Move.x) > 0.1)
             player.ChangeState(player.runState);
