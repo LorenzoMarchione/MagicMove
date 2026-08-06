@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpellHealSO
   itemName: Heal Spell Lv1
   icon: {fileID: -949738008, guid: 827d165eeefdba1458e50f3ac204cb98, type: 3}
+  itemSprite: {fileID: 21300000, guid: 221810acee185a243a25bb28992f90d2, type: 3}
   cooldown: 10
+  offCooldown: 1
   healAmount: 10
   healVFXPrefab: {fileID: 8978582378653268149, guid: a219e4dc25e3c2a4a96a719564fdda43, type: 3}

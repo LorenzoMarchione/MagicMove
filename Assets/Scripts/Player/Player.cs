@@ -20,15 +20,16 @@ public class Player : MonoBehaviour
 
     //input
     public Vector2 move;
-    public bool sprint = false;
-    public bool tryCrouching = false;
-    public bool crouching = false;
-    public bool jumpPressed = false;
-    public bool jumpReleased = false;
-    public bool attackPressed = false;
-    public bool castPressed = false;
-    public bool nextPressed = false;
-    public bool previousPressed = false;
+    public bool sprint;
+    public bool tryCrouching;
+    public bool crouching;
+    public bool jumpPressed;
+    public bool jumpReleased;
+    public bool attackPressed;
+    public bool castPressed;
+    public bool nextPressed;
+    public bool previousPressed;
+    public bool interactPressed;
 
     public float facing = 1;
 
@@ -179,6 +180,10 @@ public class Player : MonoBehaviour
     {
         if(input.isPressed)
             magic.PreviousSpell();
+    }
+    private void OnInteract(InputValue input)
+    {
+        interactPressed = input.isPressed;
     }
     //coroutine to allow jumping with slight earlier input
     private IEnumerator JumpWindow()

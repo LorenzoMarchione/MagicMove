@@ -1,10 +1,14 @@
-using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 
 public class Collectible : MonoBehaviour
 {
-    [SerializeField]private ItemSO item;
+    [SerializeField] private ItemSO item;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+
+    private bool CanBeCollected => Time.time > collectTime;
+    [SerializeField] private float collectDelay;
+    private float collectTime;
     private Player player;
 
     public Animator anim;
@@ -17,6 +21,14 @@ public class Collectible : MonoBehaviour
             return;
         Collect();
     }
+
+    public void Initialize(ItemSO itemSO)
+    {
+        item = itemSO;
+        spriteRenderer.sprite = itemSO.itemSprite;
+
+        collectTime = Time.time + collectDelay;
+    }
     //si el jugador sale sin recoger item olvidar al player
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -25,9 +37,10 @@ public class Collectible : MonoBehaviour
     }
     private void Collect()
     {
+        if(!CanBeCollected) return;
         textMessage.text = "Found " + item.name;
         anim.Play("CollectLoot");
         item.PickUp(player);
-        Destroy(gameObject, 3);
+        Destroy(gameObject, 0.7f);
     }
 }

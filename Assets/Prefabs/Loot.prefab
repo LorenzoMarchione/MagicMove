@@ -216,7 +216,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 221810acee185a243a25bb28992f90d2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -240,6 +240,8 @@ GameObject:
   - component: {fileID: 5481767648181981752}
   - component: {fileID: 781490639815881352}
   - component: {fileID: 8680600009306308307}
+  - component: {fileID: 4115567874460592638}
+  - component: {fileID: 3414339043067154398}
   m_Layer: 0
   m_Name: Loot
   m_TagString: Untagged
@@ -298,8 +300,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.01610279, y: 0.008051455}
-  m_Radius: 0.76569843
+  m_Offset: {x: 0.005141735, y: 0.008051395}
+  m_Radius: 1.0945458
 --- !u!95 &781490639815881352
 Animator:
   serializedVersion: 7
@@ -335,8 +337,74 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Collectible
   item: {fileID: 11400000, guid: e886b49e33bb0684094998be44b0f2d8, type: 2}
+  spriteRenderer: {fileID: 7591143303152508147}
+  collectDelay: 2
   anim: {fileID: 781490639815881352}
   textMessage: {fileID: 1173740846256853123}
+--- !u!70 &4115567874460592638
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4336562016945775623}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.020581486, y: 0.008232031}
+  m_Size: {x: 1.5186782, y: 0.5060339}
+  m_Direction: 1
+--- !u!50 &3414339043067154398
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4336562016945775623}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 7.5
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &4479196090116188323
 GameObject:
   m_ObjectHideFlags: 0
