@@ -5,19 +5,20 @@ public class Combat : MonoBehaviour
     private Player player;
 
     [Header("Attack settings")]
+    [SerializeField] private int atkDamage;
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private Transform hitPos;
     [SerializeField] private float hitRadius;
     [SerializeField] private float atkCooldown;
     [SerializeField] private Animator animFX;
+    
     private float atkTimer;
-    public bool canAttack = true;
-    public int atkDamage;
-
+    public bool CanAttack { get; private set; }
 
     private void Start()
     {
         player = GetComponent<Player>();
+        CanAttack = true;
     }
     private void Update()
     {
@@ -26,7 +27,7 @@ public class Combat : MonoBehaviour
             atkTimer -= Time.deltaTime;
 
             if(atkTimer <= 0)
-                canAttack = true;
+                CanAttack = true;
         }
     }
     public void AttackAnimationFinished()
@@ -36,10 +37,10 @@ public class Combat : MonoBehaviour
     }
     public void AttackTrigger()
     {
-        if (!canAttack)
+        if (!CanAttack)
             return;
 
-        canAttack = false;
+        CanAttack = false;
         
         Collider2D hit = Physics2D.OverlapCircle(hitPos.position, hitRadius, enemyLayer);
         if (hit != null)

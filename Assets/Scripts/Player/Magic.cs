@@ -6,18 +6,15 @@ using UnityEngine;
 public class Magic : MonoBehaviour
 {
     [Header("References")]
-    public Player player;
-    public SpellUIManager spellUIManager;
+    [SerializeField] private Player player;
+    [SerializeField] private SpellUIManager spellUIManager;
 
     [Header("Spells")]
     [SerializeField]private List<SpellSO> availableSpells;
+    
     public SpellSO CurrentSpell => availableSpells.Count > 0 ? availableSpells[index] : null;
-
     private Dictionary<SpellSO, float> spellCooldowns = new Dictionary<SpellSO, float>();
-
-    [SerializeField]private int index = 0;
-
-
+    private int index = 0;
 
     private void Start()
     {
@@ -44,6 +41,7 @@ public class Magic : MonoBehaviour
     }
     public bool CanCast(SpellSO spell)
     {
+        if(spell == null) return false;
         return Time.time >= spellCooldowns[spell];
     }
     public void NextSpell()

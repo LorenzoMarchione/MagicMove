@@ -14,7 +14,7 @@ public class PlayerRunState : PlayerState
     public override void Update()
     {
         //changestate logic
-        if (AttackPressed && combat.canAttack)
+        if (AttackPressed && combat.CanAttack)
             player.ChangeState(player.AttackState);
         else if (CastPressed && magic.CanCast(magic.CurrentSpell))
             player.ChangeState(player.SpellCastState);
