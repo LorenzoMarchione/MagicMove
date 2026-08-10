@@ -6,8 +6,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float rotationForce;
     [SerializeField] private float ejectionForce;
     [SerializeField] private float lifetime;
-    public Animator anim;
-    public Health health;
+    [SerializeField] private Animator anim;
+    [SerializeField] private Health health;
 
     private void OnEnable()
     {

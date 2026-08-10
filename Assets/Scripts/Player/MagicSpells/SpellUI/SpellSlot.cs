@@ -27,9 +27,9 @@ public class SpellSlot : MonoBehaviour
         if(spellSO != null)
         {
             Spell = spellSO;
-            icon.sprite = spellSO.icon;
-            cooldownOverlay.sprite = spellSO.icon;
-            text.text = Spell.itemName;
+            icon.sprite = spellSO.Icon;
+            cooldownOverlay.sprite = spellSO.Icon;
+            text.text = Spell.ItemName;
             cooldownOverlay.fillAmount = 0;
             icon.gameObject.SetActive(true);
             cooldownOverlay.gameObject.SetActive(true);

@@ -11,8 +11,8 @@ public class Collectible : MonoBehaviour
     private float collectTime;
     private Player player;
 
-    public Animator anim;
-    public TMP_Text textMessage;
+    [SerializeField] private Animator anim;
+    [SerializeField] private TMP_Text textMessage;
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
@@ -25,7 +25,7 @@ public class Collectible : MonoBehaviour
     public void Initialize(ItemSO itemSO)
     {
         item = itemSO;
-        spriteRenderer.sprite = itemSO.itemSprite;
+        spriteRenderer.sprite = itemSO.ItemSprite;
 
         collectTime = Time.time + collectDelay;
     }
