@@ -14,7 +14,10 @@ public class PlayerFallState : PlayerState
     }
     public override void Update()
     {
-        if (player.IsGrounded)
+
+        if (player.IsWallInFront && JumpPressed)
+            player.ChangeState(player.wallJumpState);
+        else if (player.IsGrounded)
             player.ChangeState(player.idleState);
     }
     public override void FixedUpdate()

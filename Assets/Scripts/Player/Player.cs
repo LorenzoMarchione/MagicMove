@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     public PlayerSlideState slideState;
     public PlayerAttackState attackState;
     public PlayerSpellCastState spellCastState;
+    public PlayerWallJumpState wallJumpState;
 
     //input
     public Vector2 move;
@@ -36,12 +37,15 @@ public class Player : MonoBehaviour
     //check variables
     public bool IsGrounded { get; private set; }
     public bool IsUnderCeiling { get; private set; }
+    public bool IsWallInFront { get; private set; }
 
     [Header("Movement settings")]
     public float walkSpeed;
     public float runSpeed;
     public float crouchSpeed;
     public float jumpForce;
+    public float wallJumpForceX;
+    public float wallJumpForceY;
 
 
     [Header("Floor Check settings")]
@@ -54,6 +58,10 @@ public class Player : MonoBehaviour
     [SerializeField] private float ceilingCheckHeight;
     [SerializeField] private Transform ceilingCheckPos;
     //possible new layer for ceiling in the future
+
+    [Header("Wall at feet Check Settings")]
+    [SerializeField] private float wallCheckLenght;
+    [SerializeField] private Transform wallCheckpos;
 
     [Header("Jump and fall settings")]
     [SerializeField] private float jumpWindowDuration;
@@ -107,6 +115,7 @@ public class Player : MonoBehaviour
         slideState = new PlayerSlideState(this);
         attackState = new PlayerAttackState(this);
         spellCastState = new PlayerSpellCastState(this);
+        wallJumpState = new PlayerWallJumpState(this);
 
         ChangeState(idleState);
 
@@ -121,6 +130,7 @@ public class Player : MonoBehaviour
         currentState.Update();
         GroundCheck();
         CeilingCheck();
+        WallAtFeetCheck();
     }
     private void FixedUpdate()
     {
@@ -220,11 +230,20 @@ public class Player : MonoBehaviour
         Collider2D hit = Physics2D.OverlapBox(ceilingCheckPos.position, new Vector2(ceilingCheckWidth, ceilingCheckHeight), 0, floor);
         IsUnderCeiling = hit;
     }
+    private void WallAtFeetCheck()
+    {
+        Vector2 lineEndPoint = new Vector2(wallCheckpos.position.x + wallCheckLenght, wallCheckpos.position.y);
+        RaycastHit2D hit = Physics2D.Raycast(wallCheckpos.position, new Vector2(facing, 0), wallCheckLenght, floor);
+        IsWallInFront = hit;
+
+    }
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.orange;
         Gizmos.DrawWireCube(groundCheckPos.position, new Vector3(groundCheckLength, groundCheckLength));
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(ceilingCheckPos.position, new Vector3(ceilingCheckWidth, ceilingCheckHeight));
+        Gizmos.color= Color.green;
+        Gizmos.DrawLine(wallCheckpos.position, new Vector3(wallCheckpos.position.x + wallCheckLenght, wallCheckpos.position.y, 0));
     }
 }

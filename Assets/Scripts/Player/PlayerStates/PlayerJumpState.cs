@@ -21,9 +21,12 @@ public class PlayerJumpState : PlayerState
     }
     public override void Update()
     {
-        if (rb.linearVelocityY < -0.1 && !player.IsGrounded)
+
+        if (player.IsWallInFront && JumpPressed)
+            player.ChangeState(player.wallJumpState);
+        else if (rb.linearVelocityY < -0.1 && !player.IsGrounded)
             player.ChangeState(player.fallState);
-        if (player.IsGrounded && rb.linearVelocityY < 0.1)
+        else if (player.IsGrounded && rb.linearVelocityY < 0.1)
             player.ChangeState(player.idleState);
     }
     public override void FixedUpdate()
