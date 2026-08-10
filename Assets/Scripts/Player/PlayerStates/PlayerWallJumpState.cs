@@ -11,12 +11,10 @@ public class PlayerWallJumpState : PlayerState
     {
         base.Enter();
 
-
-        JumpPressed = false;
-        JumpReleased = false;
+        player.ConsumeJump();
 
         rb.linearVelocity = Vector2.zero;
-        Vector2 wallJumpForce = new Vector2 (player.wallJumpForceX * -player.facing, player.wallJumpForceY);
+        Vector2 wallJumpForce = new Vector2 (player.WallJumpForceX * -player.Facing, player.WallJumpForceY);
         rb.AddForce(wallJumpForce, ForceMode2D.Impulse);
 
         rb.gravityScale = player.upGravity;
@@ -26,8 +24,8 @@ public class PlayerWallJumpState : PlayerState
     public override void Update()
     {
         if (player.IsWallInFront && JumpPressed)
-            player.ChangeState(player.wallJumpState);
+            player.ChangeState(player.WallJumpState);
         else if (player.IsGrounded && rb.linearVelocityY < 0.1)
-            player.ChangeState(player.idleState);
+            player.ChangeState(player.IdleState);
     }
 }

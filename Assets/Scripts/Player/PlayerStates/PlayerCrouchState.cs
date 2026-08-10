@@ -15,17 +15,17 @@ public class PlayerCrouchState : PlayerState
     public override void Update()
     {
         if (!TryCrouch && !player.IsUnderCeiling)
-            player.ChangeState(player.idleState);
+            player.ChangeState(player.IdleState);
         if (JumpPressed && !player.slideLock)
-            player.ChangeState(player.slideState);
+            player.ChangeState(player.SlideState);
     }
     public override void FixedUpdate()
     {
         //move player based on move input and sprint input, also flip to face move direction
-        rb.linearVelocityX = player.crouchSpeed * Move.x;
-        if (Move.x < -0.1 && player.facing > 0)
+        rb.linearVelocityX = player.CrouchSpeed * Move.x;
+        if (Move.x < -0.1 && player.Facing > 0)
             player.FLip();
-        else if (Move.x > 0.1 && player.facing < 0)
+        else if (Move.x > 0.1 && player.Facing < 0)
             player.FLip();
     }
     public override void Exit()

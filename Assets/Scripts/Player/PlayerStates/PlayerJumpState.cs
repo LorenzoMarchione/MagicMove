@@ -11,23 +11,22 @@ public class PlayerJumpState : PlayerState
     {
         base.Enter();
 
-        JumpPressed = false;
-        JumpReleased = false;
+        player.ConsumeJump();
         
         //jump physics
         rb.linearVelocityY = 0;
-        rb.AddForceY(player.jumpForce, ForceMode2D.Impulse);
+        rb.AddForceY(player.JumpForce, ForceMode2D.Impulse);
         rb.gravityScale = player.upGravity;   
     }
     public override void Update()
     {
 
         if (player.IsWallInFront && JumpPressed)
-            player.ChangeState(player.wallJumpState);
+            player.ChangeState(player.WallJumpState);
         else if (rb.linearVelocityY < -0.1 && !player.IsGrounded)
-            player.ChangeState(player.fallState);
+            player.ChangeState(player.FallState);
         else if (player.IsGrounded && rb.linearVelocityY < 0.1)
-            player.ChangeState(player.idleState);
+            player.ChangeState(player.IdleState);
     }
     public override void FixedUpdate()
     {
@@ -35,11 +34,11 @@ public class PlayerJumpState : PlayerState
             rb.linearVelocityY *= player.jumpHalt;
 
         //move player based on move input and sprint input, also flip to face move direction
-        float targetSpeed = Sprint ? player.runSpeed : player.walkSpeed;
+        float targetSpeed = Sprint ? player.RunSpeed : player.WalkSpeed;
         rb.linearVelocityX = targetSpeed * Move.x;
-        if (Move.x < -0.1 && player.facing > 0)
+        if (Move.x < -0.1 && player.Facing > 0)
             player.FLip();
-        else if (Move.x > 0.1 && player.facing < 0)
+        else if (Move.x > 0.1 && player.Facing < 0)
             player.FLip();
     }
     public override void Exit()

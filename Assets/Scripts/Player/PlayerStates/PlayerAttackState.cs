@@ -10,13 +10,13 @@ public class PlayerAttackState : PlayerState
     {
         base.Enter();
         rb.linearVelocityX = 0f;
-        AttackPressed = false;
+        player.ConsumeAttack();
     }
     public override void OnAnimationFinished()
     {
         if (Mathf.Abs(Move.x) > 0.1)
-            player.ChangeState(player.runState);
+            player.ChangeState(player.RunState);
         else
-            player.ChangeState(player.idleState);
+            player.ChangeState(player.IdleState);
     }
 }

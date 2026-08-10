@@ -16,7 +16,7 @@ public class Chest : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         if(player == null) return;
-        if (player.interactPressed)
+        if (player.InteractPressed)
             anim.Play("OpenChest");
     }
     private void OnTriggerExit2D(Collider2D collision) => player = null;

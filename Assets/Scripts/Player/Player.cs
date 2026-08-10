@@ -7,32 +7,33 @@ using UnityEngineInternal;
 
 public class Player : MonoBehaviour
 {
-    //different player states to use
     private PlayerState currentState;
-    public PlayerIdleState idleState;
-    public PlayerRunState runState;
-    public PlayerJumpState jumpState;
-    public PlayerFallState fallState;
-    public PlayerCrouchState crouchState;
-    public PlayerSlideState slideState;
-    public PlayerAttackState attackState;
-    public PlayerSpellCastState spellCastState;
-    public PlayerWallJumpState wallJumpState;
+    //different player states to use
+    public PlayerIdleState IdleState { get; private set; }
+    public PlayerRunState RunState { get; private set; }
+    public PlayerJumpState JumpState { get; private set; }
+    public PlayerFallState FallState { get; private set; }
+    public PlayerCrouchState CrouchState { get; private set; }
+    public PlayerSlideState SlideState { get; private set; }
+    public PlayerAttackState AttackState { get; private set; }
+    public PlayerSpellCastState SpellCastState { get; private set; }
+    public PlayerWallJumpState WallJumpState { get; private set; }
+
 
     //input
-    public Vector2 move;
-    public bool sprint;
-    public bool tryCrouching;
-    public bool crouching;
-    public bool jumpPressed;
-    public bool jumpReleased;
-    public bool attackPressed;
-    public bool castPressed;
-    public bool nextPressed;
-    public bool previousPressed;
-    public bool interactPressed;
+    public Vector2 Move { get; private set; }
+    public bool Sprint { get; private set; }
+    public bool TryCrouching { get; private set; }
+    public bool Crouching { get; private set; }
+    public bool JumpPressed { get; private set; }
+    public bool JumpReleased { get; private set; }
+    public bool AttackPressed { get; private set; }
+    public bool CastPressed { get; private set; }
+    public bool NextPressed { get; private set; }
+    public bool PreviousPressed { get; private set; }
+    public bool InteractPressed { get; private set; }
 
-    public float facing = 1;
+    public float Facing { get; private set; }
 
     //check variables
     public bool IsGrounded { get; private set; }
@@ -40,13 +41,19 @@ public class Player : MonoBehaviour
     public bool IsWallInFront { get; private set; }
 
     [Header("Movement settings")]
-    public float walkSpeed;
-    public float runSpeed;
-    public float crouchSpeed;
-    public float jumpForce;
-    public float wallJumpForceX;
-    public float wallJumpForceY;
+    [SerializeField] private float walkSpeed;
+    [SerializeField] private float runSpeed;
+    [SerializeField] private float crouchSpeed;
+    [SerializeField] private float jumpForce;
+    [SerializeField] private float wallJumpForceX;
+    [SerializeField] private float wallJumpForceY;
 
+    public float WalkSpeed { get => walkSpeed; }
+    public float RunSpeed { get => runSpeed; }
+    public float CrouchSpeed { get => crouchSpeed; }
+    public float JumpForce { get => jumpForce; }
+    public float WallJumpForceX { get => wallJumpForceX; }
+    public float WallJumpForceY { get => wallJumpForceY; }
 
     [Header("Floor Check settings")]
     [SerializeField] private float groundCheckLength;
@@ -107,17 +114,20 @@ public class Player : MonoBehaviour
         magic = GetComponent<Magic>();
 
         //creating to be used states
-        idleState = new PlayerIdleState(this);
-        runState = new PlayerRunState(this);
-        jumpState = new PlayerJumpState(this);
-        fallState = new PlayerFallState(this);
-        crouchState = new PlayerCrouchState(this);
-        slideState = new PlayerSlideState(this);
-        attackState = new PlayerAttackState(this);
-        spellCastState = new PlayerSpellCastState(this);
-        wallJumpState = new PlayerWallJumpState(this);
+        IdleState = new PlayerIdleState(this);
+        RunState = new PlayerRunState(this);
+        JumpState = new PlayerJumpState(this);
+        FallState = new PlayerFallState(this);
+        CrouchState = new PlayerCrouchState(this);
+        SlideState = new PlayerSlideState(this);
+        AttackState = new PlayerAttackState(this);
+        SpellCastState = new PlayerSpellCastState(this);
+        WallJumpState = new PlayerWallJumpState(this);
 
-        ChangeState(idleState);
+        ChangeState(IdleState);
+
+        //Facing direction set
+        Facing = transform.localScale.x;
 
         //crouch hitbox setters
         normalHitboxY = box.size.y;
@@ -138,6 +148,12 @@ public class Player : MonoBehaviour
     }
     public void ChangeState(PlayerState state)
     {
+        if(state == null)
+        {
+            Debug.Log("State empty");
+            return;
+        }
+
         if (currentState != null)
             currentState.Exit();
         currentState = state;
@@ -150,36 +166,36 @@ public class Player : MonoBehaviour
     //move input and crouch check
     private void OnMove(InputValue input)
     {
-        move = input.Get<Vector2>();
-        if (move.x < 0)
-            move.x = -1;
-        if (move.x > 0)
-            move.x = 1;
-        tryCrouching = move.y < -0.1;
+        Move = input.Get<Vector2>();
+        if (Move.x < 0)
+            Move = new Vector2(-1, Move.y);
+        if (Move.x > 0)
+            Move = new Vector2(1, Move.y);
+        TryCrouching = Move.y < -0.1;
     }
     //jump input logic
     private void OnJump(InputValue input)
     {
         if (input.isPressed)
         {
-            jumpPressed = input.isPressed;
+            JumpPressed = input.isPressed;
             StartCoroutine(JumpWindow());
         }
         else
-            jumpReleased = true;
+            JumpReleased = true;
     }
     //sprint button
     private void OnSprint(InputValue input)
     {
-        sprint = input.isPressed;
+        Sprint = input.isPressed;
     }
     private void OnAttack(InputValue input)
     {
-        attackPressed = input.isPressed;
+        AttackPressed = input.isPressed;
     }
     private void OnSpellCast(InputValue input)
     {
-        castPressed = input.isPressed;
+        CastPressed = input.isPressed;
     }
     private void OnNext(InputValue input)
     {
@@ -193,14 +209,14 @@ public class Player : MonoBehaviour
     }
     private void OnInteract(InputValue input)
     {
-        interactPressed = input.isPressed;
+        InteractPressed = input.isPressed;
     }
     //coroutine to allow jumping with slight earlier input
     private IEnumerator JumpWindow()
     {
         yield return new WaitForSeconds(jumpWindowDuration);
-        if(jumpPressed)
-            jumpPressed = false;
+        if(JumpPressed)
+            JumpPressed = false;
     }
     private IEnumerator SlideLocked()
     {
@@ -212,11 +228,18 @@ public class Player : MonoBehaviour
     {
         StartCoroutine(SlideLocked());
     }
+    public void ConsumeJump()
+    {
+        JumpPressed = false;
+        JumpReleased = false;
+    }
+    public void ConsumeAttack() => AttackPressed = false;
+    public void ConsumeSpell() => CastPressed = false;
     //make player face opposite direction
     public void FLip()
     {
-        facing = -transform.localScale.x;
-        transform.localScale = new Vector3(facing, 1, 1);
+        Facing = -transform.localScale.x;
+        transform.localScale = new Vector3(Facing, 1, 1);
     }
     //check if player is touching the ground
     private void GroundCheck()
@@ -233,7 +256,7 @@ public class Player : MonoBehaviour
     private void WallAtFeetCheck()
     {
         Vector2 lineEndPoint = new Vector2(wallCheckpos.position.x + wallCheckLenght, wallCheckpos.position.y);
-        RaycastHit2D hit = Physics2D.Raycast(wallCheckpos.position, new Vector2(facing, 0), wallCheckLenght, floor);
+        RaycastHit2D hit = Physics2D.Raycast(wallCheckpos.position, new Vector2(Facing, 0), wallCheckLenght, floor);
         IsWallInFront = hit;
 
     }

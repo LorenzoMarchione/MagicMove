@@ -16,17 +16,17 @@ public class PlayerIdleState : PlayerState
     {
         //changestate logic
         if (AttackPressed && combat.canAttack)
-            player.ChangeState(player.attackState);
+            player.ChangeState(player.AttackState);
         else if (CastPressed && magic.CanCast(magic.CurrentSpell))
-            player.ChangeState(player.spellCastState);
+            player.ChangeState(player.SpellCastState);
         else if (Mathf.Abs(Move.x) > 0.1)
-            player.ChangeState(player.runState);
+            player.ChangeState(player.RunState);
         else if (JumpPressed)
-            player.ChangeState(player.jumpState);
+            player.ChangeState(player.JumpState);
         else if (TryCrouch || player.IsUnderCeiling)
-            player.ChangeState(player.crouchState);
+            player.ChangeState(player.CrouchState);
         else if (!player.IsGrounded && rb.linearVelocityY < -9)
-            player.ChangeState(player.fallState);
+            player.ChangeState(player.FallState);
     }
     public override void Exit()
     {

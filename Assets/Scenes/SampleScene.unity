@@ -399,21 +399,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79fdfc397d3272e489534d724d7f937f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
-  move: {x: 0, y: 0}
-  sprint: 0
-  tryCrouching: 0
-  crouching: 0
-  jumpPressed: 0
-  jumpReleased: 0
-  attackPressed: 0
-  castPressed: 0
-  nextPressed: 0
-  previousPressed: 0
-  interactPressed: 0
-  facing: 1
   walkSpeed: 7.5
   runSpeed: 12.5
-  crouchSpeed: 4
+  crouchSpeed: 5
   jumpForce: 18
   wallJumpForceX: 10
   wallJumpForceY: 15

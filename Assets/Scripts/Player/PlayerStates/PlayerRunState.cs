@@ -15,26 +15,26 @@ public class PlayerRunState : PlayerState
     {
         //changestate logic
         if (AttackPressed && combat.canAttack)
-            player.ChangeState(player.attackState);
+            player.ChangeState(player.AttackState);
         else if (CastPressed && magic.CanCast(magic.CurrentSpell))
-            player.ChangeState(player.spellCastState);
+            player.ChangeState(player.SpellCastState);
         else if (JumpPressed)
-            player.ChangeState(player.jumpState);
+            player.ChangeState(player.JumpState);
         else if (TryCrouch || player.IsUnderCeiling)
-            player.ChangeState(player.crouchState);
+            player.ChangeState(player.CrouchState);
         else if (!player.IsGrounded && rb.linearVelocityY < -9)
-            player.ChangeState(player.fallState);
+            player.ChangeState(player.FallState);
         else if (Mathf.Abs(Move.x) < 0.1)
-            player.ChangeState(player.idleState);
+            player.ChangeState(player.IdleState);
     }
     public override void FixedUpdate()
     {
         //move player based on move input and sprint input, also flip to face move direction
-        float targetSpeed = Sprint ? player.runSpeed : player.walkSpeed;
+        float targetSpeed = Sprint ? player.RunSpeed : player.WalkSpeed;
         rb.linearVelocityX = targetSpeed * Move.x;
-        if (Move.x < -0.1 && player.facing > 0)
+        if (Move.x < -0.1 && player.Facing > 0)
             player.FLip();
-        else if (Move.x > 0.1 && player.facing < 0)
+        else if (Move.x > 0.1 && player.Facing < 0)
             player.FLip();
     }
 }

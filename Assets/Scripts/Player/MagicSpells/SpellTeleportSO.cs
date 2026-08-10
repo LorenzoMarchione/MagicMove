@@ -7,7 +7,7 @@ public class SpellTeleportSO : SpellSO
     public LayerMask obstacleLayer;
     public override void Cast(Player player)
     {
-        float tpDistance = range * player.facing;
+        float tpDistance = range * player.Facing;
         Vector2 targetPos = new Vector2(player.transform.position.x + tpDistance, player.transform.position.y);
 
         Collider2D hit = Physics2D.OverlapCircle(targetPos, playerRadius, obstacleLayer);
@@ -17,7 +17,7 @@ public class SpellTeleportSO : SpellSO
             Debug.Log("colision");
             do
             {
-                targetPos -= new Vector2(step * player.facing, 0);
+                targetPos -= new Vector2(step * player.Facing, 0);
                 hit = Physics2D.OverlapCircle(targetPos, playerRadius, obstacleLayer);
             }
             while (hit != null);

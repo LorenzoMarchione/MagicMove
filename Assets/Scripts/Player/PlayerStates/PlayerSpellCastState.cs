@@ -11,13 +11,13 @@ public class PlayerSpellCastState : PlayerState
         base.Enter();
 
         rb.linearVelocityX = 0f;
-        CastPressed = false;
+        player.ConsumeSpell();
     }
     public override void OnAnimationFinished()
     {
         if (Mathf.Abs(Move.x) > 0)
-            player.ChangeState(player.runState);
+            player.ChangeState(player.RunState);
         else
-            player.ChangeState(player.idleState);
+            player.ChangeState(player.IdleState);
     }
 }

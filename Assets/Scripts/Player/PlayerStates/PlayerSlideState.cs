@@ -12,10 +12,10 @@ public class PlayerSlideState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        JumpPressed = false;
+        player.ConsumeJump();
         timer = player.slideDuration;
         
-        rb.linearVelocityX = player.slideSpeed * player.facing;
+        rb.linearVelocityX = player.slideSpeed * player.Facing;
         box.size = new Vector2(box.size.x, player.crouchHitboxY);
         box.offset = new Vector2(box.offset.x, player.crouchOffset);
     }
@@ -23,7 +23,7 @@ public class PlayerSlideState : PlayerState
     {
         timer -= Time.deltaTime;
         if (timer <= 0f)
-            player.ChangeState(player.idleState);
+            player.ChangeState(player.IdleState);
     }
     public override void Exit()
     {
