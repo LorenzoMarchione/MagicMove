@@ -2,9 +2,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Spells/Teleport Spell")]
 public class SpellTeleportSO : SpellSO
 {
-    public float range = 7.5f;
-    public float playerRadius = 1f;
-    public LayerMask obstacleLayer;
+    [SerializeField] private float range = 7.5f;
+    [SerializeField] private float playerRadius = 1f;
+    [SerializeField] private LayerMask obstacleLayer;
     public override void Cast(Player player)
     {
         float tpDistance = range * player.Facing;

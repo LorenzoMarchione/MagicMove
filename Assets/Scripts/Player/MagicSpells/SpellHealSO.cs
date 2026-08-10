@@ -2,8 +2,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Spells/Heal Spell")]
 public class SpellHealSO : SpellSO
 {
-    public int healAmount = 10;
-    public GameObject healVFXPrefab;
+    [SerializeField] private int healAmount = 10;
+    [SerializeField] private GameObject healVFXPrefab;
     public override void Cast(Player player)
     {
         GameObject heal = Instantiate(healVFXPrefab, player.transform.position, Quaternion.identity);

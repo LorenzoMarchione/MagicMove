@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public class SpellSlot : MonoBehaviour
 {
     [Header("References")]
-    public Image icon;
-    public Image cooldownOverlay;
-    public GameObject highlight;
-    public TMP_Text text;
+    [SerializeField] private Image icon;
+    [SerializeField] private Image cooldownOverlay;
+    [SerializeField] private GameObject highlight;
+    [SerializeField] private TMP_Text text;
     public SpellSO Spell {  get; private set; }
 
     [Header("Slot Settings")]

@@ -2,11 +2,11 @@ using UnityEngine;
 [CreateAssetMenu(menuName ="Spells/Spark Spell")]
 public class SpellSparkSO : SpellSO
 {
-    public float areaOfEffect = 5f;
-    public int sparkDamage = 5;
-    public LayerMask enemyLayer;
-    public GameObject sparkVFXPrefab;
-    public GameObject sparkRayVFXPrefab;
+    [SerializeField] private float areaOfEffect = 5f;
+    [SerializeField] private int sparkDamage = 5;
+    [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private GameObject sparkVFXPrefab;
+    [SerializeField] private GameObject sparkRayVFXPrefab;
     public override void Cast(Player player)
     {
         Collider2D[] hits = Physics2D.OverlapCircleAll(player.transform.position, areaOfEffect, enemyLayer);

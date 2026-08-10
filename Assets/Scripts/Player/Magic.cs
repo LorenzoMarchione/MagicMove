@@ -36,8 +36,8 @@ public class Magic : MonoBehaviour
         if (!CanCast(CurrentSpell) || CurrentSpell == null)
             return;
         CurrentSpell.Cast(player);
-        spellCooldowns[CurrentSpell] = Time.time + CurrentSpell.cooldown;
-        spellUIManager.StartSlotCooldoown(CurrentSpell, CurrentSpell.cooldown);
+        spellCooldowns[CurrentSpell] = Time.time + CurrentSpell.Cooldown;
+        spellUIManager.StartSlotCooldoown(CurrentSpell, CurrentSpell.Cooldown);
     }
     public bool CanCast(SpellSO spell)
     {
