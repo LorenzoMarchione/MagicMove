@@ -13,11 +13,11 @@ public class PlayerSlideState : PlayerState
     {
         base.Enter();
         player.ConsumeJump();
-        timer = player.slideDuration;
+        timer = player.SlideDuration;
         
-        rb.linearVelocityX = player.slideSpeed * player.Facing;
-        box.size = new Vector2(box.size.x, player.crouchHitboxY);
-        box.offset = new Vector2(box.offset.x, player.crouchOffset);
+        rb.linearVelocityX = player.SlideSpeed * player.Facing;
+        box.size = new Vector2(box.size.x, player.CrouchHitboxY);
+        box.offset = new Vector2(box.offset.x, player.CrouchOffset);
     }
     public override void Update()
     {
@@ -31,7 +31,7 @@ public class PlayerSlideState : PlayerState
 
         player.LockSlide();
 
-        box.size = new Vector2(box.size.x, player.normalHitboxY);
-        box.offset = new Vector2(box.offset.x, player.normalOffset);
+        box.size = new Vector2(box.size.x, player.NormalHitboxY);
+        box.offset = new Vector2(box.offset.x, player.NormalOffset);
     }
 }

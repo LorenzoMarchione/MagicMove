@@ -10,7 +10,7 @@ public class PlayerFallState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        rb.gravityScale = player.downGravity;
+        rb.gravityScale = player.DownGravity;
     }
     public override void Update()
     {
@@ -33,6 +33,6 @@ public class PlayerFallState : PlayerState
     public override void Exit()
     {
         base.Exit();
-        rb.gravityScale = player.downGravity;
+        rb.gravityScale = player.DownGravity;
     }
 }

@@ -16,7 +16,7 @@ public class PlayerJumpState : PlayerState
         //jump physics
         rb.linearVelocityY = 0;
         rb.AddForceY(player.JumpForce, ForceMode2D.Impulse);
-        rb.gravityScale = player.upGravity;   
+        rb.gravityScale = player.UpGravity;   
     }
     public override void Update()
     {
@@ -31,7 +31,7 @@ public class PlayerJumpState : PlayerState
     public override void FixedUpdate()
     {
         if (JumpReleased && rb.linearVelocityY > 0.1)
-            rb.linearVelocityY *= player.jumpHalt;
+            rb.linearVelocityY *= player.JumpHalt;
 
         //move player based on move input and sprint input, also flip to face move direction
         float targetSpeed = Sprint ? player.RunSpeed : player.WalkSpeed;
@@ -44,6 +44,6 @@ public class PlayerJumpState : PlayerState
     public override void Exit()
     {
         base.Exit();
-        rb.gravityScale = player.downGravity;
+        rb.gravityScale = player.DownGravity;
     }
 }

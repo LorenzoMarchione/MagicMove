@@ -72,46 +72,54 @@ public class Player : MonoBehaviour
 
     [Header("Jump and fall settings")]
     [SerializeField] private float jumpWindowDuration;
-    public float jumpHalt;
-    public float upGravity;
-    public float downGravity;
-    public float normalGravity;
+    [SerializeField] private float jumpHalt;
+    [SerializeField] private float upGravity;
+    [SerializeField] private float downGravity;
+    [SerializeField] private float normalGravity;
+    public float JumpHalt { get => jumpHalt; }
+    public float UpGravity { get => upGravity; }
+    public float DownGravity { get => downGravity; }
+    public float NormalGravity { get => normalGravity; }
 
     [Header("Slide settings")]
-    public float slideDuration;
-    public float slideLockDuration;
-    public float slideSpeed;
-    public bool slideLock = false;
+    [SerializeField] private float slideDuration;
+    [SerializeField] private float slideLockDuration;
+    [SerializeField] private float slideSpeed;
+    [SerializeField] private bool slideLock = false;
+    public float SlideDuration { get => slideDuration; }
+    public float SlideSpeed { get => slideSpeed; }
+    public bool SlideLock { get => slideLock; }
 
     [Header("Crouch hitbox")]
     [SerializeField] private float crouchHitboxYMult = 0.5f;
-    public float normalHitboxY;
-    public float crouchHitboxY;
-    public float normalOffset;
-    public float crouchOffset;
+    public float NormalHitboxY { get; private set; }
+    public float CrouchHitboxY { get; private set; }
+    public float NormalOffset { get; private set; }
+    public float CrouchOffset { get; private set; }
 
     //core components
-    public Combat combat;
-    public Magic magic;
+    public Combat Combat { get; private set; }
+    public Magic Magic { get; private set; }
 
     //unity components
-    public Rigidbody2D rb;
-    public PlayerInput input;
-    public Transform transform;
-    public Animator anim;
-    public CapsuleCollider2D box;
-    
+    public Rigidbody2D Rb { get; private set; }
+    public PlayerInput Input { get; private set; }
+    public Transform Tf { get; private set; }
+    public Animator Anim { get; private set; }
+    public CapsuleCollider2D Box { get; private set; }
+
     void Start()
     {
-        //component setters
-        rb = GetComponent<Rigidbody2D>();
-        input = GetComponent<PlayerInput>();
-        transform = GetComponent<Transform>();
-        anim = GetComponent<Animator>();
-        box = GetComponent<CapsuleCollider2D>();
+        //unity component setters
+        Rb = GetComponent<Rigidbody2D>();
+        Input = GetComponent<PlayerInput>();
+        Tf = GetComponent<Transform>();
+        Anim = GetComponent<Animator>();
+        Box = GetComponent<CapsuleCollider2D>();
 
-        combat = GetComponent<Combat>();
-        magic = GetComponent<Magic>();
+        //core component setters
+        Combat = GetComponent<Combat>();
+        Magic = GetComponent<Magic>();
 
         //creating to be used states
         IdleState = new PlayerIdleState(this);
@@ -130,10 +138,10 @@ public class Player : MonoBehaviour
         Facing = transform.localScale.x;
 
         //crouch hitbox setters
-        normalHitboxY = box.size.y;
-        normalOffset = box.offset.y;
-        crouchHitboxY = box.size.y * crouchHitboxYMult;
-        crouchOffset = box.offset.y - crouchHitboxY / 2;
+        NormalHitboxY = Box.size.y;
+        NormalOffset = Box.offset.y;
+        CrouchHitboxY = Box.size.y * crouchHitboxYMult;
+        CrouchOffset = Box.offset.y - CrouchHitboxY / 2;
     }
     void Update()
     {
@@ -200,12 +208,12 @@ public class Player : MonoBehaviour
     private void OnNext(InputValue input)
     {
         if (input.isPressed)
-            magic.NextSpell();
+            Magic.NextSpell();
     }
     private void OnPrevious(InputValue input)
     {
         if(input.isPressed)
-            magic.PreviousSpell();
+            Magic.PreviousSpell();
     }
     private void OnInteract(InputValue input)
     {

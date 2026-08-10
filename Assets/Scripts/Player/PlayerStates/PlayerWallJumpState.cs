@@ -17,7 +17,7 @@ public class PlayerWallJumpState : PlayerState
         Vector2 wallJumpForce = new Vector2 (player.WallJumpForceX * -player.Facing, player.WallJumpForceY);
         rb.AddForce(wallJumpForce, ForceMode2D.Impulse);
 
-        rb.gravityScale = player.upGravity;
+        rb.gravityScale = player.UpGravity;
 
         player.FLip();
     }

@@ -6,6 +6,6 @@ public abstract class SpellSO : ItemSO
     public bool offCooldown = true;
 
     public abstract void Cast(Player player);
-    public override void PickUp(Player player) => player.magic.LearnSpell(this);
+    public override void PickUp(Player player) => player.Magic.LearnSpell(this);
     
 }

@@ -27,13 +27,13 @@ public abstract class PlayerState
     public PlayerState(Player player)
     {
         this.player = player;
-        rb = player.rb;
-        tf = player.transform;
-        anim = player.anim;
-        box = player.box;
+        rb = player.Rb;
+        tf = player.Tf;
+        anim = player.Anim;
+        box = player.Box;
 
-        combat = player.combat;
-        magic = player.magic;
+        combat = player.Combat;
+        magic = player.Magic;
     }
     public virtual void Enter() 
     { 

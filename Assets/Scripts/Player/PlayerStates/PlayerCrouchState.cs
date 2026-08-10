@@ -9,14 +9,14 @@ public class PlayerCrouchState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        box.size = new Vector2(box.size.x, player.crouchHitboxY);
-        box.offset = new Vector2(box.offset.x, player.crouchOffset);
+        box.size = new Vector2(box.size.x, player.CrouchHitboxY);
+        box.offset = new Vector2(box.offset.x, player.CrouchOffset);
     }
     public override void Update()
     {
         if (!TryCrouch && !player.IsUnderCeiling)
             player.ChangeState(player.IdleState);
-        if (JumpPressed && !player.slideLock)
+        if (JumpPressed && !player.SlideLock)
             player.ChangeState(player.SlideState);
     }
     public override void FixedUpdate()
@@ -31,7 +31,7 @@ public class PlayerCrouchState : PlayerState
     public override void Exit()
     {
         base.Exit();
-        box.size = new Vector2(box.size.x, player.normalHitboxY);
-        box.offset = new Vector2(box.offset.x, player.normalOffset);
+        box.size = new Vector2(box.size.x, player.NormalHitboxY);
+        box.offset = new Vector2(box.offset.x, player.NormalOffset);
     }
 }
