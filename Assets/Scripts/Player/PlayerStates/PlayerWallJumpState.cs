@@ -25,7 +25,11 @@ public class PlayerWallJumpState : PlayerState
     {
         if (player.IsWallInFront && JumpPressed)
             player.ChangeState(player.WallJumpState);
-        else if (player.IsGrounded && rb.linearVelocityY < 0.1)
+        else if (player.IsWallInFront)
+            player.ChangeState(player.WallSlideState);
+        else if (!player.IsGrounded && rb.linearVelocityY < -0.1)
+            player.ChangeState(player.FallState);
+        else if (player.IsGrounded && Mathf.Abs(rb.linearVelocityY) < 0.1)
             player.ChangeState(player.IdleState);
     }
 }

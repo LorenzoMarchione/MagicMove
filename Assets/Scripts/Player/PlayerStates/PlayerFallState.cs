@@ -17,6 +17,8 @@ public class PlayerFallState : PlayerState
 
         if (player.IsWallInFront && JumpPressed)
             player.ChangeState(player.WallJumpState);
+        else if (player.IsWallInFront)
+            player.ChangeState(player.WallSlideState);
         else if (player.IsGrounded)
             player.ChangeState(player.IdleState);
     }
@@ -24,7 +26,8 @@ public class PlayerFallState : PlayerState
     {
         //move player based on move input and sprint input, also flip to face move direction
         float targetSpeed = Sprint ? player.RunSpeed : player.WalkSpeed;
-        rb.linearVelocityX = targetSpeed * Move.x;
+        if(Mathf.Abs(Move.x) > 0.1)
+            rb.linearVelocityX = targetSpeed * Move.x;
         if (Move.x < -0.1 && player.Facing > 0)
             player.FLip();
         else if (Move.x > 0.1 && player.Facing < 0)

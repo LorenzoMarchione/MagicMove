@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     public PlayerAttackState AttackState { get; private set; }
     public PlayerSpellCastState SpellCastState { get; private set; }
     public PlayerWallJumpState WallJumpState { get; private set; }
+    public PlayerWallSlideState WallSlideState { get; private set; }
 
 
     //input
@@ -64,11 +65,11 @@ public class Player : MonoBehaviour
     [SerializeField] private float ceilingCheckWidth;
     [SerializeField] private float ceilingCheckHeight;
     [SerializeField] private Transform ceilingCheckPos;
-    //possible new layer for ceiling in the future
 
     [Header("Wall at feet Check Settings")]
     [SerializeField] private float wallCheckLenght;
     [SerializeField] private Transform wallCheckpos;
+    [SerializeField] private LayerMask wall;
 
     [Header("Jump and fall settings")]
     [SerializeField] private float jumpWindowDuration;
@@ -76,10 +77,12 @@ public class Player : MonoBehaviour
     [SerializeField] private float upGravity;
     [SerializeField] private float downGravity;
     [SerializeField] private float normalGravity;
+    [SerializeField] private float wallSlideGravity;
     public float JumpHalt { get => jumpHalt; }
     public float UpGravity { get => upGravity; }
     public float DownGravity { get => downGravity; }
     public float NormalGravity { get => normalGravity; }
+    public float WallSlideGravity { get => wallSlideGravity; }
 
     [Header("Slide settings")]
     [SerializeField] private float slideDuration;
@@ -131,6 +134,7 @@ public class Player : MonoBehaviour
         AttackState = new PlayerAttackState(this);
         SpellCastState = new PlayerSpellCastState(this);
         WallJumpState = new PlayerWallJumpState(this);
+        WallSlideState = new PlayerWallSlideState(this);
 
         ChangeState(IdleState);
 
@@ -264,7 +268,7 @@ public class Player : MonoBehaviour
     private void WallAtFeetCheck()
     {
         Vector2 lineEndPoint = new Vector2(wallCheckpos.position.x + wallCheckLenght, wallCheckpos.position.y);
-        RaycastHit2D hit = Physics2D.Raycast(wallCheckpos.position, new Vector2(Facing, 0), wallCheckLenght, floor);
+        RaycastHit2D hit = Physics2D.Raycast(wallCheckpos.position, new Vector2(Facing, 0), wallCheckLenght, wall);
         IsWallInFront = hit;
 
     }
