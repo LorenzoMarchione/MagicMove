@@ -10,7 +10,7 @@ public class SpellSlot : MonoBehaviour
     [SerializeField] private Image cooldownOverlay;
     [SerializeField] private GameObject highlight;
     [SerializeField] private TMP_Text text;
-    public SpellSO Spell {  get; private set; }
+    public SpellSO Spell { get; private set; }
 
     [Header("Slot Settings")]
     [SerializeField] private Color normalColor;
@@ -79,22 +79,23 @@ public class SpellSlot : MonoBehaviour
     {
         float halfway = popDuration / 2;
         float timer = 0;
-        while(timer < halfway)
+        Vector3 scaleToUse = icon.rectTransform.localScale;
+        while (timer < halfway)
         {
             float popTransision = Mathf.Lerp(1, popScale, timer/halfway);
-            icon.rectTransform.localScale = normalScale * popTransision;
+            icon.rectTransform.localScale = scaleToUse * popTransision;
             timer += Time.deltaTime;
             yield return null;
         }
-        icon.rectTransform.localScale = normalScale * popScale;
+        icon.rectTransform.localScale = scaleToUse * popScale;
         timer = halfway;
         while(timer > 0)
         {
             float popTransision = Mathf.Lerp(1, popScale, timer / halfway);
-            icon.rectTransform.localScale = normalScale * popTransision;
+            icon.rectTransform.localScale = scaleToUse * popTransision;
             timer -= Time.deltaTime;
             yield return null;
         }
-        icon.rectTransform.localScale = normalScale;
+        icon.rectTransform.localScale = scaleToUse;
     }
 }
