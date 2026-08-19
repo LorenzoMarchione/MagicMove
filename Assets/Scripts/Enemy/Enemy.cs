@@ -11,14 +11,11 @@ public class Enemy : MonoBehaviour
 
     private void OnEnable()
     {
-        health.OnDamaged += HandleDamage;
-        health.OnDeath += HandleDeath;
-
-    }
-    private void Start()
-    {
         anim = GetComponent<Animator>();
         health = GetComponent<Health>();
+
+        health.OnDamaged += HandleDamage;
+        health.OnDeath += HandleDeath;
     }
     private void OnDisable()
     {
