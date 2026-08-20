@@ -2,14 +2,15 @@ using UnityEngine;
 
 public class EnemyPatrolState : EnemyState
 {
-    public EnemyPatrolState(EnemyConfig config, Player playerDetected) : base(config, playerDetected)
+    public EnemyPatrolState(Enemy enemy, Player playerDetected) : base(enemy, playerDetected)
     {
         animName = "isWalking";
     }
     public override void FixedUpdate()
     {
         if (!senses.FloorCheck() || senses.WallCheck())
-            config.Flip();
-        rb.linearVelocityX = config.PatrolSpeed * config.Facing;
+            enemy.Flip();
+        
+        rb.linearVelocityX = config.PatrolSpeed * enemy.Facing;
     }
 }

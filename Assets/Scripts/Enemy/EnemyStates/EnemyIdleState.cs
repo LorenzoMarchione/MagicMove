@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemyIdleState : EnemyState
 {
-   public EnemyIdleState (EnemyConfig config, Player playerDetected) : base(config, playerDetected)
+   public EnemyIdleState (Enemy enemy, Player playerDetected) : base(enemy, playerDetected)
     {
         animName = "isIdle";
     }

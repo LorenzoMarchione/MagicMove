@@ -4,6 +4,7 @@ using UnityEngine;
 public abstract class EnemyState 
 {
     protected Player player;
+    protected Enemy enemy;
     protected EnemyConfig config;
     protected EnemyStateMachine stateMachine;
     protected EnemySenses senses;
@@ -11,14 +12,15 @@ public abstract class EnemyState
     protected Animator anim;
     protected string animName;
 
-    public EnemyState (EnemyConfig conf, Player playerDetected)
+    public EnemyState (Enemy enemy, Player playerDetected)
     {
         player = playerDetected;
-        config = conf;
-        stateMachine = conf.GetComponent<EnemyStateMachine>();
-        senses = conf.GetComponent<EnemySenses>();
-        rb = conf.GetComponent<Rigidbody2D>();
-        anim = conf.GetComponent<Animator>();
+        this.enemy = enemy;
+        stateMachine = enemy.StateMachine;
+        config = enemy.Config;
+        senses = enemy.Senses;
+        rb = enemy.Rb;
+        anim = enemy.Anim;
     }
 
     public virtual void Enter()

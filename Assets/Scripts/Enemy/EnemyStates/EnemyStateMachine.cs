@@ -5,11 +5,13 @@ public class EnemyStateMachine : MonoBehaviour
     private EnemyState currentState;
     public EnemyIdleState IdleState { get; private set; }
     public EnemyPatrolState PatrolState { get; private set; }
+    private void Awake()
+    {
+        IdleState = new EnemyIdleState(GetComponent<Enemy>(), null);
+        PatrolState = new EnemyPatrolState(GetComponent<Enemy>(), null);
+    }
     private void Start()
     {
-        IdleState = new EnemyIdleState(GetComponent<EnemyConfig>(), null);
-        PatrolState = new EnemyPatrolState(GetComponent<EnemyConfig>(), null);
-
         ChangeState(IdleState);
     }
     private void Update()
