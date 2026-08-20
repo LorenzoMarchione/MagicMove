@@ -17,14 +17,12 @@ MonoBehaviour:
   chaseSpeed: 10
   playerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   floorLayer:
     serializedVersion: 2
-    m_Bits: 0
-  floorCheckPoint: {fileID: 0}
+    m_Bits: 64
   floorCheckDistance: 0.5
   wallLayer:
     serializedVersion: 2
-    m_Bits: 0
-  wallCheckPoints: []
+    m_Bits: 320
   wallCheckDistance: 1
