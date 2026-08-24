@@ -13,10 +13,15 @@ public class EnemySenses : MonoBehaviour
         enemy = GetComponent<Enemy>();
         config = enemy.Config;
     }
-    public Player SeekPlayer()
+    public Transform SeekPlayer()
     {
-        Collider2D collider = Physics2D.OverlapCircle(transform.position, config.SeeDistance, config.PlayerLayer);
-        return collider.GetComponent<Player>();
+        Collider2D collider = null;
+        if(collider = Physics2D.OverlapCircle(transform.position, config.SeeDistance, config.PlayerLayer))
+        {
+            return collider.GetComponent<Transform>();
+        }
+        return null;
+        
     }
     public bool FloorCheck()
     {

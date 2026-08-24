@@ -12,9 +12,8 @@ public abstract class EnemyState
     protected Animator anim;
     protected string animName;
 
-    public EnemyState (Enemy enemy, Player playerDetected)
+    public EnemyState (Enemy enemy)
     {
-        player = playerDetected;
         this.enemy = enemy;
         stateMachine = enemy.StateMachine;
         config = enemy.Config;
