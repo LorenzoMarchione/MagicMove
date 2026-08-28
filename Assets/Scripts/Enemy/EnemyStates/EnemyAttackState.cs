@@ -6,4 +6,14 @@ public class EnemyAttackState : EnemyState
     {
         animName = "isAttacking1";
     }
+    public override void Enter()
+    {
+        base.Enter();
+
+        rb.linearVelocityX = 0f;
+    }
+    public override void OnAnimationFinished()
+    {
+        stateMachine.ChangeState(stateMachine.IdleState);
+    }
 }

@@ -16,6 +16,8 @@ public class EnemyIdleState : EnemyState
     {
         if (senses.SeekPlayer() == null)
             stateMachine.ChangeState(stateMachine.PatrolState);
+        else if (senses.IsOnMeleeRange())
+            stateMachine.ChangeState(stateMachine.AttackState);
         else if (senses.FloorCheck() && senses.SeekPlayer() != null)
             stateMachine.ChangeState(stateMachine.ChaseState);
     }

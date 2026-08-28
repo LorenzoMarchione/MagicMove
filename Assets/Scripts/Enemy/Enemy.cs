@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
     public EnemyConfig Config { get => config; }
     public EnemyStateMachine StateMachine { get; private set; }
     public EnemySenses Senses { get; private set; }
+    public EnemyCombat Combat { get; private set; }
     public Rigidbody2D Rb { get; private set; }
     public Animator Anim { get; private set; }
     public float Facing { get; private set; }
@@ -15,6 +16,7 @@ public class Enemy : MonoBehaviour
     {
         StateMachine = GetComponent<EnemyStateMachine>();
         Senses = GetComponent<EnemySenses>();
+        Combat = GetComponent<EnemyCombat>();
         Rb = GetComponent<Rigidbody2D>();
         Anim = GetComponent<Animator>();
 

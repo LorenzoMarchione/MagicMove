@@ -6,12 +6,14 @@ public class EnemyStateMachine : MonoBehaviour
     public EnemyIdleState IdleState { get; private set; }
     public EnemyPatrolState PatrolState { get; private set; }
     public EnemyChaseState ChaseState { get; private set; } 
+    public EnemyAttackState AttackState { get; private set; }
 
     private void Start()
     {
         IdleState = new EnemyIdleState(GetComponent<Enemy>());
         PatrolState = new EnemyPatrolState(GetComponent<Enemy>());
         ChaseState = new EnemyChaseState(GetComponent<Enemy>());
+        AttackState = new EnemyAttackState(GetComponent<Enemy>());
 
         ChangeState(PatrolState);
     }

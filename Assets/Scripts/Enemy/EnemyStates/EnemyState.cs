@@ -8,6 +8,7 @@ public abstract class EnemyState
     protected EnemyConfig config;
     protected EnemyStateMachine stateMachine;
     protected EnemySenses senses;
+    protected EnemyCombat combat;
     protected Rigidbody2D rb;
     protected Animator anim;
     protected string animName;
@@ -18,6 +19,7 @@ public abstract class EnemyState
         stateMachine = enemy.StateMachine;
         config = enemy.Config;
         senses = enemy.Senses;
+        combat = enemy.Combat;
         rb = enemy.Rb;
         anim = enemy.Anim;
     }

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ae3106e9e20bf44ead7f2f346227a19, type: 3}
   m_Name: Skeleton
   m_EditorClassIdentifier: Assembly-CSharp::EnemyConfig
-  seeDistance: 15
   patrolSpeed: 5
   chaseSpeed: 10
+  seeDistance: 15
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -26,3 +26,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 320
   wallCheckDistance: 1
+  meleeRange: 1.42
+  rangedRange: 0
+  meleeDamage: 10
+  rangedDamage: 10
