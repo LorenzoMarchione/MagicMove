@@ -48,6 +48,10 @@ public class Enemy : MonoBehaviour
     {
         StateMachine.FixedUpdate();
     }
+    public void OnAnimationFinished()
+    {
+        StateMachine.AnimationFinished();
+    }
     public void Flip()
     {
         transform.localScale = new Vector3(-Facing, 1, 1);
@@ -56,9 +60,13 @@ public class Enemy : MonoBehaviour
     public void FaceTarget(Transform tf)
     {
         float deltaX = transform.position.x - tf.position.x;
-        if(Mathf.Abs(deltaX) >= 1 && Facing * deltaX < 0)
+        if(Mathf.Abs(deltaX) >= 1 && Facing * deltaX > 0)
         {
             Flip();
         }
+    }
+    public void MoveForward(float speed)
+    {
+        Rb.linearVelocityX = speed * Facing;
     }
 }

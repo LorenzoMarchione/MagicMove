@@ -8,14 +8,12 @@ public class EnemyIdleState : EnemyState
     public override void Enter()
     {
         base.Enter();
-        rb.linearVelocityX = 0;
+        enemy.MoveForward(0);
     }
     public override void Update()
     {
         if (senses.SeekPlayer() == null)
             stateMachine.ChangeState(enemy.PatrolState);
-        else if (senses.IsOnMeleeRange())
-            stateMachine.ChangeState(enemy.AttackState);
         else if (senses.FloorCheck() && senses.SeekPlayer() != null)
             stateMachine.ChangeState(enemy.ChaseState);
     }

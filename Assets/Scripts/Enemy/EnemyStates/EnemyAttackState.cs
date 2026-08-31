@@ -8,10 +8,10 @@ public class EnemyAttackState : EnemyState
     {
         base.Enter();
 
-        rb.linearVelocityX = 0f;
+        enemy.MoveForward(0);
     }
     public override void OnAnimationFinished()
     {
-        stateMachine.ChangeState(enemy.IdleState);
+        stateMachine.ChangeState(enemy.ChaseState);
     }
 }

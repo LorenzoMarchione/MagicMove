@@ -14,6 +14,6 @@ public class EnemyPatrolState : EnemyState
         if (!senses.FloorCheck() || senses.WallCheck())
             enemy.Flip();
         
-        rb.linearVelocityX = config.PatrolSpeed * enemy.Facing;
+        enemy.MoveForward(config.PatrolSpeed);
     }
 }
