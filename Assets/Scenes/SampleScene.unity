@@ -165,7 +165,6 @@ GameObject:
   - component: {fileID: 136173301}
   - component: {fileID: 136173308}
   - component: {fileID: 136173306}
-  - component: {fileID: 136173305}
   - component: {fileID: 136173304}
   - component: {fileID: 136173311}
   - component: {fileID: 136173312}
@@ -266,7 +265,7 @@ Transform:
   m_GameObject: {fileID: 136173300}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.6, y: -0.32, z: 0}
+  m_LocalPosition: {x: 11.91, y: -0.32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -291,18 +290,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 50
   currentHealth: 0
---- !u!114 &136173305
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 136173300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 004a1c621b05be2418b2d2c10e917508, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyStateMachine
 --- !u!114 &136173306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,6 +302,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80f3dc3f7b0a35a44aba95fae29bc06e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySenses
+  enemy: {fileID: 136173311}
+  config: {fileID: 11400000, guid: 2b46c602458001d41b19222efc183055, type: 2}
   floorCheckPoint: {fileID: 1660490163}
   wallCheckPoints:
   - {fileID: 103216615}
@@ -485,7 +474,7 @@ Transform:
   m_GameObject: {fileID: 223741407}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.69, y: 0.31, z: 0}
+  m_LocalPosition: {x: 3, y: 0.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

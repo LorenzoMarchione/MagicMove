@@ -1,27 +1,18 @@
 using UnityEngine;
 
-public class EnemyStateMachine : MonoBehaviour
+public class EnemyStateMachine
 {
     private EnemyState currentState;
-    public EnemyIdleState IdleState { get; private set; }
-    public EnemyPatrolState PatrolState { get; private set; }
-    public EnemyChaseState ChaseState { get; private set; } 
-    public EnemyAttackState AttackState { get; private set; }
 
-    private void Start()
+    public void Initialize(EnemyState firstState)
     {
-        IdleState = new EnemyIdleState(GetComponent<Enemy>());
-        PatrolState = new EnemyPatrolState(GetComponent<Enemy>());
-        ChaseState = new EnemyChaseState(GetComponent<Enemy>());
-        AttackState = new EnemyAttackState(GetComponent<Enemy>());
-
-        ChangeState(PatrolState);
+        ChangeState(firstState);
     }
-    private void Update()
+    public void Update()
     {
         currentState.Update();
     }
-    private void FixedUpdate()
+    public void FixedUpdate()
     {
         currentState.FixedUpdate();
     }

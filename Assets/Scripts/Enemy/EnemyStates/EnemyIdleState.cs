@@ -3,10 +3,8 @@ using UnityEngine;
 
 public class EnemyIdleState : EnemyState
 {
-   public EnemyIdleState (Enemy enemy) : base(enemy)
-    {
-        animName = "isIdle";
-    }
+    protected override string animName => "isIdle";
+   public EnemyIdleState (Enemy enemy) : base(enemy) { }
     public override void Enter()
     {
         base.Enter();
@@ -15,10 +13,10 @@ public class EnemyIdleState : EnemyState
     public override void Update()
     {
         if (senses.SeekPlayer() == null)
-            stateMachine.ChangeState(stateMachine.PatrolState);
+            stateMachine.ChangeState(enemy.PatrolState);
         else if (senses.IsOnMeleeRange())
-            stateMachine.ChangeState(stateMachine.AttackState);
+            stateMachine.ChangeState(enemy.AttackState);
         else if (senses.FloorCheck() && senses.SeekPlayer() != null)
-            stateMachine.ChangeState(stateMachine.ChaseState);
+            stateMachine.ChangeState(enemy.ChaseState);
     }
 }

@@ -2,10 +2,8 @@ using UnityEngine;
 
 public class EnemyAttackState : EnemyState
 {
-    public EnemyAttackState(Enemy attacker) : base(attacker)
-    {
-        animName = "isAttacking1";
-    }
+    protected override string animName => "isAttacking1";
+    public EnemyAttackState(Enemy attacker) : base(attacker) { }
     public override void Enter()
     {
         base.Enter();
@@ -14,6 +12,6 @@ public class EnemyAttackState : EnemyState
     }
     public override void OnAnimationFinished()
     {
-        stateMachine.ChangeState(stateMachine.IdleState);
+        stateMachine.ChangeState(enemy.IdleState);
     }
 }

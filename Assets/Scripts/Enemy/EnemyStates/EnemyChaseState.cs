@@ -2,26 +2,19 @@ using UnityEngine;
 
 public class EnemyChaseState : EnemyState
 {
-    public EnemyChaseState(Enemy enemy) : base(enemy)
-    {
-        animName = "isWalking";
-    }
+    protected override string animName => "isWalking";
+    public EnemyChaseState(Enemy enemy) : base(enemy) { }
     public override void Update()
     {
         if (senses.SeekPlayer() == null)
-            stateMachine.ChangeState(stateMachine.PatrolState);
+            stateMachine.ChangeState(enemy.PatrolState);
         else if (senses.IsOnMeleeRange())
-            stateMachine.ChangeState(stateMachine.AttackState);
+            stateMachine.ChangeState(enemy.AttackState);
         else if (!senses.FloorCheck()) 
-            stateMachine.ChangeState(stateMachine.IdleState);
+            stateMachine.ChangeState(enemy.IdleState);
     }
     public override void FixedUpdate()
     {
-        Transform playerTf = senses.SeekPlayer();
-        float distance = enemy.transform.position.x - playerTf.position.x;
-        int direction = enemy.transform.position.x < playerTf.position.x ? 1 : -1;
-        if (enemy.Facing != direction && Mathf.Abs(distance) < config.FlipThreshold)
-            enemy.Flip();
-        rb.linearVelocityX = enemy.Facing * config.ChaseSpeed;
+        enemy.FaceTarget(senses.SeekPlayer());
     }
 }

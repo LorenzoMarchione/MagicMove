@@ -1,3 +1,4 @@
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ public abstract class EnemyState
     protected EnemyCombat combat;
     protected Rigidbody2D rb;
     protected Animator anim;
-    protected string animName;
+    protected virtual string animName => null;
 
     public EnemyState (Enemy enemy)
     {
@@ -26,13 +27,15 @@ public abstract class EnemyState
 
     public virtual void Enter()
     {
-        anim.SetBool(animName, true);
+        if(!String.IsNullOrEmpty(animName))
+            anim.SetBool(animName, true);
     }
     public virtual void Update() { }
     public virtual void FixedUpdate() { }
     public virtual void OnAnimationFinished() { }
     public virtual void Exit()
     {
-        anim.SetBool(animName, false);
+        if (!String.IsNullOrEmpty(animName))
+            anim.SetBool(animName, false);
     }
 }

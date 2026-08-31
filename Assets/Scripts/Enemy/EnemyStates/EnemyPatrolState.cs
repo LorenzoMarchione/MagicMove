@@ -2,14 +2,12 @@ using UnityEngine;
 
 public class EnemyPatrolState : EnemyState
 {
-    public EnemyPatrolState(Enemy enemy) : base(enemy)
-    {
-        animName = "isWalking";
-    }
+    protected override string animName => "isWalking";
+    public EnemyPatrolState(Enemy enemy) : base(enemy) { }
     public override void Update()
     {
         if (senses.SeekPlayer() != null)
-            stateMachine.ChangeState(stateMachine.ChaseState);
+            stateMachine.ChangeState(enemy.ChaseState);
     }
     public override void FixedUpdate()
     {
