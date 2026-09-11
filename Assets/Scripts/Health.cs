@@ -17,12 +17,11 @@ public class Health : MonoBehaviour
     {
         currentHealth += amount;
 
-        if(currentHealth > maxHealth) 
+        if (currentHealth > maxHealth) 
             currentHealth = maxHealth;
-        
-        if(currentHealth > 0 && amount < 0) 
-            OnDamaged.Invoke();
         else if (currentHealth <= 0) 
-            OnDeath.Invoke();
+            OnDeath?.Invoke();
+        else if (amount < 0) 
+            OnDamaged?.Invoke();
     }
 }

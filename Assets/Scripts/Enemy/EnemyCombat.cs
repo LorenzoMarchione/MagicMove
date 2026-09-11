@@ -5,6 +5,7 @@ public class EnemyCombat : MonoBehaviour
     private Enemy enemy;
     private EnemyConfig config;
     [SerializeField] private Transform meleePoint;
+    private float lastAttackTime;
 
     private void Start()
     {
@@ -15,12 +16,14 @@ public class EnemyCombat : MonoBehaviour
     {
         MeleeAttack();
     }
+    public bool CanAttack() => lastAttackTime > Time.time + config.AttackCooldown;
     private void MeleeAttack()
     {
-        Health hp = Physics2D.OverlapCircle(meleePoint.position, config.MeleeRange, config.PlayerLayer).GetComponent<Health>();
-        if (hp != null)
-        {
-            hp.ChangeHealth(config.MeleeDamage);
-        }
+        lastAttackTime = Time.time;
+        Collider2D hit = Physics2D.OverlapCircle(meleePoint.position, config.MeleeRange, config.PlayerLayer);
+        if (hit == null)
+            return;
+        if (hit.TryGetComponent<Health>(out Health hp))
+            hp.ChangeHealth(-config.MeleeDamage);
     }
 }

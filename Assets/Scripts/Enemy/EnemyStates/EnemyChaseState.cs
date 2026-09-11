@@ -6,7 +6,7 @@ public class EnemyChaseState : EnemyState
     public EnemyChaseState(Enemy enemy) : base(enemy) { }
     public override void Update()
     {
-        if (senses.IsOnMeleeRange())
+        if (senses.IsOnMeleeRange() && combat.CanAttack())
             stateMachine.ChangeState(enemy.AttackState);
         else if (!senses.FloorCheck()) 
             stateMachine.ChangeState(enemy.IdleState);

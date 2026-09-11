@@ -21,11 +21,13 @@ public class EnemyConfig : ScriptableObject
     [SerializeField] private float rangedRange;
     [SerializeField] private int meleeDamage = 10;
     [SerializeField] private int rangedDamage = 10;
+    [SerializeField] private float attackCooldown = 1f;
 
     public int MeleeDamage { get => meleeDamage; }
     public int RangedDamage { get => rangedDamage; }
     public float MeleeRange { get => meleeRange; }
     public float RangedRange { get => rangedRange; }
+    public float AttackCooldown { get => attackCooldown; }
     public float SeeDistance { get => seeDistance; }
     public float FlipThreshold {  get => flipThreshold; }
     public float PatrolSpeed { get => patrolSpeed; }

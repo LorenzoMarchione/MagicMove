@@ -36,22 +36,10 @@ public class Enemy : MonoBehaviour
 
         Facing = transform.localScale.x;
     }
-    private void Start()
-    {
-        StateMachine.Initialize(PatrolState);
-    }
-    private void Update()
-    {
-        StateMachine.Update();
-    }
-    private void FixedUpdate()
-    {
-        StateMachine.FixedUpdate();
-    }
-    public void OnAnimationFinished()
-    {
-        StateMachine.AnimationFinished();
-    }
+    private void Start() => StateMachine?.Initialize(PatrolState);
+    private void Update() => StateMachine?.Update();
+    private void FixedUpdate() => StateMachine?.FixedUpdate();
+    public void OnAnimationFinished() => StateMachine?.AnimationFinished();
     public void Flip()
     {
         transform.localScale = new Vector3(-Facing, 1, 1);
