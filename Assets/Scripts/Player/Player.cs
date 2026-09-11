@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     public PlayerSpellCastState SpellCastState { get; private set; }
     public PlayerWallJumpState WallJumpState { get; private set; }
     public PlayerWallSlideState WallSlideState { get; private set; }
+    public PlayerDamagedState DamagedState { get; private set; }
 
 
     //input
@@ -49,12 +50,18 @@ public class Player : MonoBehaviour
     [SerializeField] private float wallJumpForceX;
     [SerializeField] private float wallJumpForceY;
 
-    public float WalkSpeed { get => walkSpeed; }
-    public float RunSpeed { get => runSpeed; }
-    public float CrouchSpeed { get => crouchSpeed; }
-    public float JumpForce { get => jumpForce; }
-    public float WallJumpForceX { get => wallJumpForceX; }
-    public float WallJumpForceY { get => wallJumpForceY; }
+    [Header("Damaged settings")]
+    [SerializeField] private float knockbackSpeed;
+    [SerializeField] private float knockbackDuration;
+
+    public float WalkSpeed => walkSpeed; 
+    public float RunSpeed => runSpeed; 
+    public float CrouchSpeed => crouchSpeed; 
+    public float JumpForce => jumpForce; 
+    public float WallJumpForceX => wallJumpForceX; 
+    public float WallJumpForceY => wallJumpForceY; 
+    public float KnockbackSpeed => knockbackSpeed; 
+    public float KnockbackDuration => knockbackDuration; 
 
     [Header("Floor Check settings")]
     [SerializeField] private float groundCheckLength;
@@ -135,6 +142,7 @@ public class Player : MonoBehaviour
         SpellCastState = new PlayerSpellCastState(this);
         WallJumpState = new PlayerWallJumpState(this);
         WallSlideState = new PlayerWallSlideState(this);
+        DamagedState = new PlayerDamagedState(this);
 
         ChangeState(IdleState);
 
@@ -253,6 +261,11 @@ public class Player : MonoBehaviour
         Facing = -transform.localScale.x;
         transform.localScale = new Vector3(Facing, 1, 1);
     }
+    public void PushTo(int direction)
+    {
+        Rb.linearVelocityX = direction * knockbackSpeed;
+    }
+    public void StopMovementX() => Rb.linearVelocityX = 0;
     //check if player is touching the ground
     private void GroundCheck()
     {
