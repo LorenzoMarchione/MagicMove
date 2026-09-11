@@ -2,15 +2,19 @@ using UnityEngine;
 
 public class EnemyDamaged : MonoBehaviour
 {
+    private Enemy enemy;
+    private Animator anim;
+    private Health health;
+
+    [Header("Death to bits FX")]
     [SerializeField] private GameObject[] bodyParts;
     [SerializeField] private float rotationForce;
     [SerializeField] private float ejectionForce;
     [SerializeField] private float lifetime;
-    [SerializeField] private Animator anim;
-    [SerializeField] private Health health;
 
     private void OnEnable()
     {
+        enemy = GetComponent<Enemy>();
         anim = GetComponent<Animator>();
         health = GetComponent<Health>();
 
@@ -22,9 +26,13 @@ public class EnemyDamaged : MonoBehaviour
         health.OnDamaged -= HandleDamage;
         health.OnDeath -= HandleDeath;
     }
-    private void HandleDamage()
+    private void HandleDamage(Vector2 sourcePosition)
     {
-        anim.Play("Hit");
+        int knockbackDir = 0;
+        knockbackDir = transform.position.x > sourcePosition.x ? 1 : -1;
+
+        enemy.DamagedState.SetKnockbackDir(knockbackDir);
+        enemy.StateMachine.ChangeState(enemy.DamagedState);
     }
     private void HandleDeath()
     {

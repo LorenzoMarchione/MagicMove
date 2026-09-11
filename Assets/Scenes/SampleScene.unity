@@ -163,11 +163,11 @@ GameObject:
   - component: {fileID: 136173310}
   - component: {fileID: 136173309}
   - component: {fileID: 136173301}
-  - component: {fileID: 136173308}
+  - component: {fileID: 136173311}
   - component: {fileID: 136173306}
   - component: {fileID: 136173304}
-  - component: {fileID: 136173311}
   - component: {fileID: 136173312}
+  - component: {fileID: 136173308}
   m_Layer: 7
   m_Name: Skeleton
   m_TagString: Untagged
@@ -326,8 +326,6 @@ MonoBehaviour:
   rotationForce: 0
   ejectionForce: 0
   lifetime: 0
-  anim: {fileID: 0}
-  health: {fileID: 0}
 --- !u!70 &136173309
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -474,7 +472,7 @@ Transform:
   m_GameObject: {fileID: 223741407}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 0.35, z: 0}
+  m_LocalPosition: {x: 2.5, y: 0.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

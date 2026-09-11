@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     public EnemyCombat Combat { get; private set; }
     public Rigidbody2D Rb { get; private set; }
     public Animator Anim { get; private set; }
+    public Health Hp { get; private set; }
     [SerializeField] private EnemyConfig config;
     
     public float Facing { get; private set; }
@@ -19,20 +20,22 @@ public class Enemy : MonoBehaviour
     public EnemyPatrolState PatrolState { get; private set; }
     public EnemyChaseState ChaseState { get; private set; }
     public EnemyAttackState AttackState { get; private set; }
+    public EnemyDamagedState DamagedState { get; private set; }
 
     private void Awake()
     {
         Senses = GetComponent<EnemySenses>();
         Combat = GetComponent<EnemyCombat>();
+        Hp = GetComponent<Health>();
         Rb = GetComponent<Rigidbody2D>();
         Anim = GetComponent<Animator>();
-        
         StateMachine = new EnemyStateMachine();
 
         IdleState = new EnemyIdleState(GetComponent<Enemy>());
         PatrolState = new EnemyPatrolState(GetComponent<Enemy>());
         ChaseState = new EnemyChaseState(GetComponent<Enemy>());
         AttackState = new EnemyAttackState(GetComponent<Enemy>());
+        DamagedState = new EnemyDamagedState(GetComponent<Enemy>());
 
         Facing = transform.localScale.x;
     }
@@ -53,8 +56,7 @@ public class Enemy : MonoBehaviour
             Flip();
         }
     }
-    public void MoveForward(float speed)
-    {
-        Rb.linearVelocityX = speed * Facing;
-    }
+    public void MoveForward(float speed) => Rb.linearVelocityX = speed * Facing;
+    public void StopMovementX() => Rb.linearVelocityX = 0;
+    public void PushTo(int direction) => Rb.linearVelocityX = direction * config.KnockbackForce;
 }

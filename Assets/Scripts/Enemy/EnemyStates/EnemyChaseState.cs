@@ -8,7 +8,9 @@ public class EnemyChaseState : EnemyState
     {
         if (senses.IsOnMeleeRange() && combat.CanAttack())
             stateMachine.ChangeState(enemy.AttackState);
-        else if (!senses.FloorCheck()) 
+        else if (senses.IsOnMeleeRange())
+            stateMachine.ChangeState(enemy.IdleState);
+        else if (!senses.FloorCheck())
             stateMachine.ChangeState(enemy.IdleState);
         else if (senses.SeekPlayer() == null)
             stateMachine.ChangeState(enemy.PatrolState);
@@ -16,8 +18,6 @@ public class EnemyChaseState : EnemyState
     public override void FixedUpdate()
     {
         enemy.FaceTarget(senses.SeekPlayer());
-        //This prevents microstepping between melee attacks
-        float chase = senses.IsOnMeleeRange() ? 0 : config.ChaseSpeed;
-        enemy.MoveForward(chase);
+        enemy.MoveForward(config.ChaseSpeed);
     }
 }

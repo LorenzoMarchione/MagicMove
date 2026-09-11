@@ -23,18 +23,24 @@ public class EnemyConfig : ScriptableObject
     [SerializeField] private int rangedDamage = 10;
     [SerializeField] private float attackCooldown = 1f;
 
-    public int MeleeDamage { get => meleeDamage; }
-    public int RangedDamage { get => rangedDamage; }
-    public float MeleeRange { get => meleeRange; }
-    public float RangedRange { get => rangedRange; }
-    public float AttackCooldown { get => attackCooldown; }
-    public float SeeDistance { get => seeDistance; }
-    public float FlipThreshold {  get => flipThreshold; }
-    public float PatrolSpeed { get => patrolSpeed; }
-    public float ChaseSpeed { get => chaseSpeed; }
-    public LayerMask PlayerLayer { get => playerLayer; }
-    public LayerMask FloorLayer { get => floorLayer; }
-    public float FloorCheckDistance { get => floorCheckDistance; }
-    public LayerMask WallLayer { get => wallLayer; }
-    public float WallCheckDistance { get => wallCheckDistance; }
+    [Header("Damaged Settings")]
+    [SerializeField] private float knockbackForce = 15f;
+    [SerializeField] private float knockbackDuration = 0.25f;
+
+    public int MeleeDamage => meleeDamage; 
+    public int RangedDamage => rangedDamage; 
+    public float MeleeRange => meleeRange; 
+    public float RangedRange => rangedRange; 
+    public float AttackCooldown => attackCooldown; 
+    public float SeeDistance => seeDistance; 
+    public float FlipThreshold => flipThreshold; 
+    public float PatrolSpeed => patrolSpeed; 
+    public float ChaseSpeed => chaseSpeed; 
+    public LayerMask PlayerLayer => playerLayer; 
+    public LayerMask FloorLayer => floorLayer; 
+    public float FloorCheckDistance => floorCheckDistance; 
+    public LayerMask WallLayer => wallLayer; 
+    public float WallCheckDistance => wallCheckDistance; 
+    public float KnockbackForce => knockbackForce;
+    public float KnockbackDuration => knockbackDuration;
 }

@@ -31,7 +31,7 @@ public class SpellSparkSO : SpellSO
             Health hp = hit.GetComponent<Health>();
             if (hp != null)
             {
-                hp.ChangeHealth(-sparkDamage);
+                hp.ChangeHealth(-sparkDamage, player.transform.position);
             }
 
             Destroy(spark, 4);

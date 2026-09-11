@@ -45,7 +45,7 @@ public class Combat : MonoBehaviour
         Collider2D hit = Physics2D.OverlapCircle(hitPos.position, hitRadius, enemyLayer);
         if (hit != null)
         {
-            hit.gameObject.GetComponent<Health>().ChangeHealth(-atkDamage);
+            hit.gameObject.GetComponent<Health>().ChangeHealth(-atkDamage, transform.position);
             animFX.Play("HitFX");
         }
     }

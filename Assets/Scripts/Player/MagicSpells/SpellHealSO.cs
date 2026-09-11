@@ -11,7 +11,7 @@ public class SpellHealSO : SpellSO
         Health health = player.GetComponent<Health>();
         if (health != null )
         {
-            health.ChangeHealth(healAmount);
+            health.ChangeHealth(healAmount, player.transform.position);
         }
     }
 }

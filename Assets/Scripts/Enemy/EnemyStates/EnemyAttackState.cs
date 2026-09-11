@@ -12,6 +12,6 @@ public class EnemyAttackState : EnemyState
     }
     public override void OnAnimationFinished()
     {
-        stateMachine.ChangeState(enemy.ChaseState);
+        stateMachine.ChangeState(enemy.IdleState);
     }
 }
