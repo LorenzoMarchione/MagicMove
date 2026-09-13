@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     public PlayerWallJumpState WallJumpState { get; private set; }
     public PlayerWallSlideState WallSlideState { get; private set; }
     public PlayerDamagedState DamagedState { get; private set; }
+    public PlayerDeadState DeadState { get; private set; }
 
 
     //input
@@ -143,6 +144,7 @@ public class Player : MonoBehaviour
         WallJumpState = new PlayerWallJumpState(this);
         WallSlideState = new PlayerWallSlideState(this);
         DamagedState = new PlayerDamagedState(this);
+        DeadState = new PlayerDeadState(this);
 
         ChangeState(IdleState);
 

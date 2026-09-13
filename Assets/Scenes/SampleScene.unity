@@ -322,10 +322,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3f771a6e6403e04380840df98bdfa59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  bodyParts: []
-  rotationForce: 0
-  ejectionForce: 0
-  lifetime: 0
+  bodyParts:
+  - {fileID: 8024097972016326038, guid: 11081db00ffe81e48821344200fb4dc0, type: 3}
+  - {fileID: 5095822152766887419, guid: 264dea08638308f4d95723e5a0203166, type: 3}
+  - {fileID: 1529749942127014598, guid: 892e168ff9e4f194ca1e9c555e083958, type: 3}
+  - {fileID: 8719340598142535268, guid: aa188726870eb954ea297359c3a53526, type: 3}
+  - {fileID: 8008978982549820813, guid: 6a659fada1a23f142a0a1bc415b9e8c4, type: 3}
+  - {fileID: 1332822274325589609, guid: c9a4f25dea5036f42a60f10b8cf3443e, type: 3}
+  - {fileID: 5424141394683692993, guid: 1aea4a7a3af02c34195b5c7396b4e96b, type: 3}
+  rotationForce: 7.5
+  ejectionForce: 3
+  lifetime: 5
 --- !u!70 &136173309
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

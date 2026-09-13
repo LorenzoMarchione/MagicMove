@@ -30,5 +30,6 @@ public class Damage : MonoBehaviour
     }
     private void HandleDeath()
     {
+        player.ChangeState(player.DeadState);
     }
 }
