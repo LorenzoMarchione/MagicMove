@@ -30,11 +30,17 @@ public class EnemySenses : MonoBehaviour
     public Transform SeekPlayer()
     {
         Collider2D collider = null;
-        if(collider = Physics2D.OverlapCircle(transform.position, config.SeeDistance, config.PlayerLayer))
-        {
-            return collider.GetComponent<Transform>();
-        }
-        return null;
+        collider = Physics2D.OverlapCircle(transform.position, config.SeeDistance, config.PlayerLayer);
+        
+            if(!collider)
+            return null;
+        
+        Player player = collider.GetComponent<Player>();
+        if(player.CurrentState == player.DeadState) 
+            return null;
+        
+        return collider.transform;
+        
         
     }
     public bool IsOnMeleeRange()

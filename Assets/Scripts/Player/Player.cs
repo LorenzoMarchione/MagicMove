@@ -7,7 +7,7 @@ using UnityEngineInternal;
 
 public class Player : MonoBehaviour
 {
-    private PlayerState currentState;
+    public PlayerState CurrentState { get; private set; }
     //different player states to use
     public PlayerIdleState IdleState { get; private set; }
     public PlayerRunState RunState { get; private set; }
@@ -159,14 +159,14 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
-        currentState.Update();
+        CurrentState.Update();
         GroundCheck();
         CeilingCheck();
         WallAtFeetCheck();
     }
     private void FixedUpdate()
     {
-        currentState.FixedUpdate();
+        CurrentState.FixedUpdate();
     }
     public void ChangeState(PlayerState state)
     {
@@ -176,14 +176,14 @@ public class Player : MonoBehaviour
             return;
         }
 
-        if (currentState != null)
-            currentState.Exit();
-        currentState = state;
-        currentState.Enter();
+        if (CurrentState != null)
+            CurrentState.Exit();
+        CurrentState = state;
+        CurrentState.Enter();
     }
     public void AnimationFinished()
     {
-        currentState.OnAnimationFinished();
+        CurrentState.OnAnimationFinished();
     }
     //move input and crouch check
     private void OnMove(InputValue input)
