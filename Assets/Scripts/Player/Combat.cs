@@ -24,29 +24,34 @@ public class Combat : MonoBehaviour
     {
         if (atkTimer > 0)
         {
+            Debug.Log("timer mayor a 0");
             atkTimer -= Time.deltaTime;
 
             if(atkTimer <= 0)
+            {
                 CanAttack = true;
+                Debug.Log("timer menor a 0 despues de mayor");
+            }
         }
     }
-    public void AttackAnimationFinished()
-    {
-        player.AnimationFinished();
-        atkTimer = atkCooldown;
-    }
+    public void AttackAnimationFinished() => player.AnimationFinished();
     public void AttackTrigger()
     {
         if (!CanAttack)
             return;
 
         CanAttack = false;
-        
+        atkTimer = atkCooldown;
+
         Collider2D hit = Physics2D.OverlapCircle(hitPos.position, hitRadius, enemyLayer);
         if (hit != null)
         {
-            hit.gameObject.GetComponent<Health>().ChangeHealth(-atkDamage, transform.position);
-            animFX.Play("HitFX");
+            Health hp = hit.gameObject.GetComponent<Health>();
+            if (hp != null)
+            {
+                hp.ChangeHealth(-atkDamage, transform.position);
+                animFX.Play("HitFX");
+            }
         }
     }
     private void OnDrawGizmosSelected()

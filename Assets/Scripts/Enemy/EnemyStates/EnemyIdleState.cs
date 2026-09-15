@@ -19,4 +19,9 @@ public class EnemyIdleState : EnemyState
         else if (senses.FloorCheck() && senses.SeekPlayer() != null && !senses.IsOnMeleeRange())
             stateMachine.ChangeState(enemy.ChaseState);
     }
+    public override void FixedUpdate()
+    {
+        if(senses.SeekPlayer() != null)
+            enemy.FaceTarget(senses.SeekPlayer());
+    }
 }

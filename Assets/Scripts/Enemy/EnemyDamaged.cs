@@ -36,6 +36,12 @@ public class EnemyDamaged : MonoBehaviour
     }
     private void HandleDeath()
     {
+        if(bodyParts.Length == 0)
+        {
+            anim.Play("Death");
+            Destroy(gameObject, lifetime);
+            return;
+        }
         foreach (GameObject prefab in bodyParts)
         {
             GameObject part = Instantiate(prefab, transform.position, Quaternion.identity);
