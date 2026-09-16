@@ -16,12 +16,19 @@ public class EnemyConfig : ScriptableObject
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] private float wallCheckDistance = 1f;
 
-    [Header("Combat Settings")]
-    [SerializeField] private float meleeRange = 1f;
-    [SerializeField] private float rangedRange;
-    [SerializeField] private int meleeDamage = 10;
-    [SerializeField] private int rangedDamage = 10;
+    [Header("General Combat Settings")]
     [SerializeField] private float attackCooldown = 1f;
+
+    [Header("Melee Combat Settings")]
+    [SerializeField] private float meleeRange = 1f;
+    [SerializeField] private int meleeDamage = 10;
+
+    [Header("Ranged Combat Settings")]
+    [SerializeField] private float rangedRange = 10f;
+    [SerializeField] private int rangedDamage = 10;
+    [SerializeField] private float projectileSpeed = 12f;
+    [SerializeField] private float projectileLifeTime = 5f;
+    [SerializeField] private GameObject projectilePrefab;
 
     [Header("Damaged Settings")]
     [SerializeField] private float knockbackForce = 15f;
@@ -30,8 +37,11 @@ public class EnemyConfig : ScriptableObject
     public int MeleeDamage => meleeDamage; 
     public int RangedDamage => rangedDamage; 
     public float MeleeRange => meleeRange; 
-    public float RangedRange => rangedRange; 
-    public float AttackCooldown => attackCooldown; 
+    public float ShootingRange => rangedRange; 
+    public float AttackCooldown => attackCooldown;
+    public float ProjectileSpeed => projectileSpeed;
+    public float ProjectileLifeTime => projectileLifeTime;
+    public GameObject ProjectilePrefab => projectilePrefab;
     public float SeeDistance => seeDistance; 
     public float FlipThreshold => flipThreshold; 
     public float PatrolSpeed => patrolSpeed; 

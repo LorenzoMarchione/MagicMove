@@ -38,15 +38,11 @@ public class EnemySenses : MonoBehaviour
         Player player = collider.GetComponent<Player>();
         if(player.CurrentState == player.DeadState) 
             return null;
-        
+
         return collider.transform;
-        
-        
     }
-    public bool IsOnMeleeRange()
-    {
-        return Physics2D.OverlapCircle(meleePoint.position, config.MeleeRange, config.PlayerLayer);
-    }
+    public bool IsOnMeleeRange() => Physics2D.OverlapCircle(meleePoint.position, config.MeleeRange, config.PlayerLayer);
+    public bool IsOnShootingRange() => Physics2D.OverlapCircle(transform.position, config.ShootingRange, config.PlayerLayer);
     public void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.white;
@@ -60,5 +56,8 @@ public class EnemySenses : MonoBehaviour
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(meleePoint.position, config.MeleeRange);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, config.ShootingRange);
     }
 }

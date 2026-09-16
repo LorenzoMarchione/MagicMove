@@ -16,7 +16,9 @@ public class EnemyIdleState : EnemyState
             stateMachine.ChangeState(enemy.PatrolState);
         else if (senses.IsOnMeleeRange() && combat.CanAttack())
             stateMachine.ChangeState(enemy.AttackState);
-        else if (senses.FloorCheck() && senses.SeekPlayer() != null && !senses.IsOnMeleeRange())
+        else if (senses.IsOnShootingRange() && combat.CanAttack())
+            stateMachine.ChangeState(enemy.RangedAttackState);
+        else if (senses.FloorCheck() && senses.SeekPlayer() != null && !(senses.IsOnMeleeRange() || senses.IsOnShootingRange()))
             stateMachine.ChangeState(enemy.ChaseState);
     }
     public override void FixedUpdate()

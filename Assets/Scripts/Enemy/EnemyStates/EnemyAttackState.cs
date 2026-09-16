@@ -8,7 +8,7 @@ public class EnemyAttackState : EnemyState
     {
         base.Enter();
 
-        enemy.MoveForward(0);
+        enemy.StopMovementX();
     }
     public override void OnAnimationFinished()
     {

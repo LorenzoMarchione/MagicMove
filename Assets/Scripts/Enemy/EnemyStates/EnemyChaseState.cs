@@ -8,7 +8,9 @@ public class EnemyChaseState : EnemyState
     {
         if (senses.IsOnMeleeRange() && combat.CanAttack())
             stateMachine.ChangeState(enemy.AttackState);
-        else if (senses.IsOnMeleeRange())
+        else if (senses.IsOnShootingRange() && combat.CanAttack())
+            stateMachine.ChangeState(enemy.RangedAttackState);
+        else if (senses.IsOnMeleeRange() || senses.IsOnShootingRange())
             stateMachine.ChangeState(enemy.IdleState);
         else if (!senses.FloorCheck())
             stateMachine.ChangeState(enemy.IdleState);
@@ -17,6 +19,7 @@ public class EnemyChaseState : EnemyState
     }
     public override void FixedUpdate()
     {
+        enemy.CurrentTarget = senses.SeekPlayer();
         enemy.FaceTarget(senses.SeekPlayer());
         enemy.MoveForward(config.ChaseSpeed);
     }

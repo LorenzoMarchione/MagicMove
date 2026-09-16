@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private EnemyConfig config;
     
     public float Facing { get; private set; }
+    public Transform CurrentTarget { get; set; }
 
     //States
     public EnemyIdleState IdleState { get; private set; }
@@ -21,6 +22,7 @@ public class Enemy : MonoBehaviour
     public EnemyChaseState ChaseState { get; private set; }
     public EnemyAttackState AttackState { get; private set; }
     public EnemyDamagedState DamagedState { get; private set; }
+    public EnemyRangedAttackState RangedAttackState { get; private set; }
 
     private void Awake()
     {
@@ -31,11 +33,12 @@ public class Enemy : MonoBehaviour
         Anim = GetComponent<Animator>();
         StateMachine = new EnemyStateMachine();
 
-        IdleState = new EnemyIdleState(GetComponent<Enemy>());
-        PatrolState = new EnemyPatrolState(GetComponent<Enemy>());
-        ChaseState = new EnemyChaseState(GetComponent<Enemy>());
-        AttackState = new EnemyAttackState(GetComponent<Enemy>());
-        DamagedState = new EnemyDamagedState(GetComponent<Enemy>());
+        IdleState = new EnemyIdleState(this);
+        PatrolState = new EnemyPatrolState(this);
+        ChaseState = new EnemyChaseState(this);
+        AttackState = new EnemyAttackState(this);
+        DamagedState = new EnemyDamagedState(this);
+        RangedAttackState = new EnemyRangedAttackState(this);
 
         Facing = transform.localScale.x;
     }
