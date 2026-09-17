@@ -24,13 +24,11 @@ public class Combat : MonoBehaviour
     {
         if (atkTimer > 0)
         {
-            Debug.Log("timer mayor a 0");
             atkTimer -= Time.deltaTime;
 
             if(atkTimer <= 0)
             {
                 CanAttack = true;
-                Debug.Log("timer menor a 0 despues de mayor");
             }
         }
     }

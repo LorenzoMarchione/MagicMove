@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ScreenFader : MonoBehaviour
 {
-    public CanvasGroup canvasGroup;
+    [SerializeField] private CanvasGroup canvasGroup;
 
     public IEnumerator Fade(float start, float end, float duration)
     {

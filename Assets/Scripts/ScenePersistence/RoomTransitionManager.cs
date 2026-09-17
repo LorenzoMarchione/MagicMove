@@ -31,65 +31,90 @@ public class RoomTransitionManager : MonoBehaviour
     }
     //unload current scene load another scene in parallel and save current scene
     private IEnumerator Transition(string sceneName, string spawnID)
+{
+    isTransitioning = true;
+
+    // 1. Fade out
+    if (!string.IsNullOrEmpty(spawnID))
+        yield return screenFader.Fade(0f, 1f, 0.5f);
+
+    // 2. Cambiar habitación
+    if (!string.IsNullOrEmpty(currentRoom))
     {
-        isTransitioning = true;
-        //fade to black screen before transition
-        if (!string.IsNullOrEmpty(spawnID))
-            yield return screenFader.Fade(0f, 1f, 0.5f);
-        //this prevents transitions if the game just started
-        if (!string.IsNullOrEmpty(currentRoom))
-        {
-            yield return SceneManager.UnloadSceneAsync(currentRoom);
-            yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-        }
-        RoomService service = ServiceLocator.Get<RoomService>();
-        foreach (Door door in service.doors)
-            door.LockDoor(true);
-        //this is to ensure that bootstrap scene doesn't get unloaded
-        //save loaded scene
+        yield return SceneManager.UnloadSceneAsync(currentRoom);
+        yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+
         Scene newScene = SceneManager.GetSceneByName(sceneName);
-        //activate saved scene
-        if(newScene.IsValid())
-            SceneManager.SetActiveScene(newScene);
-        //save current activated scene
-        currentRoom = SceneManager.GetActiveScene().name;
-        //wait 1 frame to let room register its roomservices
-        yield return null;
-        //save room service
-        SetupRoom(service, spawnID);
-        SetupCameraConfiner(service);
-        //wait before fading to allow camera to relocate
-        yield return new WaitForSeconds(0.75f);
-        //re initialize parallax after camera has positioned itself
-        ResetParallax(service);
-        //unlock player controls after pitch black screen and before fade
-        //fade to clean screen after transition
-        if(!string.IsNullOrEmpty(spawnID))
-            yield return screenFader.Fade(1f, 0f, 1f);
-        isTransitioning = false;
-        foreach (Door door in service.doors)
-            door.LockDoor(false);
+
+        if (!newScene.IsValid() || !newScene.isLoaded)
+        {
+            Debug.LogError($"Room {sceneName} couldn't be loaded.");
+            isTransitioning = false;
+            yield break;
+        }
+
+        SceneManager.SetActiveScene(newScene);
     }
+
+    // 3. Obtener RoomService de la habitación actual
+    RoomService service = ServiceLocator.Get<RoomService>();
+
+    if (service == null)
+    {
+        Debug.LogError("Current room doesn't have a registered RoomService.");
+        isTransitioning = false;
+        yield break;
+    }
+
+    currentRoom = SceneManager.GetActiveScene().name;
+
+    // 4. Bloquear puertas
+    foreach (Door door in service.Doors)
+        door.LockDoor(true);
+
+    // 5. Configurar habitación
+    SetupRoom(service, spawnID);
+    SetupCameraConfiner(service);
+
+    // Dar tiempo a Cinemachine para actualizar posición
+    yield return new WaitForSeconds(0.75f);
+
+    ResetParallax(service);
+
+    // 6. Fade in
+    if (!string.IsNullOrEmpty(spawnID))
+        yield return screenFader.Fade(1f, 0f, 1f);
+
+    // 7. Desbloquear
+    foreach (Door door in service.Doors)
+        door.LockDoor(false);
+
+    isTransitioning = false;
+}
     //set spawnpoint of player for this room
     private void SetupRoom(RoomService service, string spawnID)
     {
         if (string.IsNullOrEmpty(spawnID))
             return;
+
         //get spawn from room service
         SpawnPoint spawnToUse = service.GetSpawn(spawnID);
+
         if(spawnToUse != null)
             transform.position = spawnToUse.transform.position;
     }
     //get camera confiner from room service
     private void SetupCameraConfiner(RoomService service)
     {
-        if(service.provider != null)
-            cameraManager.SetConfiner(service.provider.confiner);
+        if (service.Provider != null)
+            cameraManager.SetConfiner(service.Provider.confiner);
+        else
+            Debug.Log("no service");
     }
     //get parallax manager from room service
     private void ResetParallax(RoomService service)
     {
-        //if(service.parallaxManager != null)
-           // service.parallaxManager.Initialize(cameraManager.camTransform);
+        if(service.ParallaxManager != null)
+            service.ParallaxManager.Initialize(cameraManager.camTransform);
     }
 }

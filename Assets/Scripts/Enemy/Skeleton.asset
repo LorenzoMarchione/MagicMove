@@ -27,10 +27,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 320
   wallCheckDistance: 1
-  meleeRange: 1.93
-  rangedRange: 0
-  meleeDamage: 10
-  rangedDamage: 10
   attackCooldown: 1
+  meleeRange: 1.93
+  meleeDamage: 10
+  rangedRange: 0
+  rangedDamage: 0
+  projectileSpeed: 0
+  projectileLifeTime: 0
+  projectilePrefab: {fileID: 0}
   knockbackForce: 15
   knockbackDuration: 0.25

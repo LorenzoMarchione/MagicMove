@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerDeadState : PlayerState
 {
+    SceneChanger changer;
     public PlayerDeadState(Player player) : base(player)
     {
         animName = "isDead";
@@ -11,5 +12,10 @@ public class PlayerDeadState : PlayerState
         base.Enter();
 
         player.StopMovementX();
+    }
+    public override void OnAnimationFinished()
+    {
+        changer = new SceneChanger();
+        changer.DeathScene();
     }
 }

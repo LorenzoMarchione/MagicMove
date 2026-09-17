@@ -338,7 +338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Collectible
   item: {fileID: 11400000, guid: e886b49e33bb0684094998be44b0f2d8, type: 2}
   spriteRenderer: {fileID: 7591143303152508147}
-  collectDelay: 2
+  collectDelay: 0.5
   anim: {fileID: 781490639815881352}
   textMessage: {fileID: 1173740846256853123}
 --- !u!70 &4115567874460592638
@@ -403,7 +403,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!1 &4479196090116188323
 GameObject:

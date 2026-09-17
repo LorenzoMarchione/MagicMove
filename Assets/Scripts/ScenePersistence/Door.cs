@@ -10,7 +10,7 @@ public class Door : MonoBehaviour
     [SerializeField] private Collider2D lockDoor;
 
     //change scenes when going through a door
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         RoomTransitionManager manager = collision.GetComponent<RoomTransitionManager>();
         if(manager != null)

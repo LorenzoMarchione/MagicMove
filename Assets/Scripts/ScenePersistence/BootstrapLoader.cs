@@ -5,6 +5,8 @@ public static class BootstrapLoader
 {
     private const string BootstrapScene = "Bootstrap";
     private const string MainMenuScene = "MainMenu";
+    private const string Win = "WinScene";
+    private const string Lose = "LoseScene";
 
     //this runs a static method right after scene loads
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -21,7 +23,7 @@ public static class BootstrapLoader
     private static void EnsureBootstrapLoaded(Scene scene)
     {
         //if this is main menu dont load bootstrap
-        if (scene.name == MainMenuScene)
+        if (scene.name == MainMenuScene || scene.name == Win || scene.name == Lose)
             return;
         //if bootstrap is not loaded, load it
         if (!SceneManager.GetSceneByName(BootstrapScene).isLoaded)

@@ -9,4 +9,10 @@ public class SceneChanger : MonoBehaviour
     {
         SceneManager.LoadScene(sceneToLoad);
     }
+    public void DeathScene() => SceneManager.LoadScene("LoseScene");
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.TryGetComponent<Player>(out Player name))
+            ChangeSceneNow();
+    }
 }

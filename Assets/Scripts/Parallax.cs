@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Parallax : MonoBehaviour
 {
-    //clase que guarda posicion y grado de parallax de fondos
     [System.Serializable]
     public class ParallaxLayer
     {
@@ -11,27 +10,39 @@ public class Parallax : MonoBehaviour
         public float parallaxFactor;
     }
 
-    [SerializeField]private List<ParallaxLayer> layers;
-    [SerializeField] private Transform camPos;
+    [SerializeField] private List<ParallaxLayer> layers;
 
+    private Transform camTransform;
     private Vector2 currentPos;
     private Vector2 pastPos;
 
-    private void Start()
+    public void Initialize(Transform camera)
     {
-        currentPos = camPos.position;
-        pastPos = camPos.position;
+        camTransform = camera;
+
+        currentPos = camTransform.position;
+        pastPos = camTransform.position;
     }
-    //mover imagenes de fondo en base a movimiento de camara y grado de parallax
-    void Update()
+
+    private void Update()
     {
-        currentPos = camPos.position;
-        Vector2 deltaPos = currentPos - pastPos; 
+        if (camTransform == null)
+            return;
+
+        currentPos = camTransform.position;
+
+        Vector2 deltaPos = currentPos - pastPos;
+
         foreach (ParallaxLayer layer in layers)
         {
-            Vector3 changePos = new Vector3(deltaPos.x * layer.parallaxFactor, deltaPos.y * layer.parallaxFactor);
+            Vector3 changePos = new Vector3(
+                deltaPos.x * layer.parallaxFactor,
+                deltaPos.y * layer.parallaxFactor
+            );
+
             layer.layerPos.position += changePos;
         }
+
         pastPos = currentPos;
     }
 }
