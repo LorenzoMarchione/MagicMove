@@ -5,6 +5,7 @@ public class Health : MonoBehaviour
 {
     public event Action<Vector2> OnDamaged;
     public event Action OnDeath;
+    public event Action OnHealthChanged;
 
     [SerializeField] private int maxHealth;
     [SerializeField] private int currentHealth;
@@ -18,6 +19,8 @@ public class Health : MonoBehaviour
     public void ChangeHealth(int amount, Vector2 sourcePosition)
     {
         currentHealth += amount;
+
+        OnHealthChanged?.Invoke();
 
         if (currentHealth > maxHealth) 
             currentHealth = maxHealth;

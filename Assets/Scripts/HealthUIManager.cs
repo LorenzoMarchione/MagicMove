@@ -1,26 +1,23 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
-public class HealthUIManager : MonoBehaviour
+public class HealthUIManager : MonoBehaviour, IHealthUI
 {
     [SerializeField] private Health health;
     [SerializeField] private TMP_Text text;
-    private string prefix = "HP: ";
     private int currentHealth;
     private int maxHealth;
-    void Start()
+    [SerializeField] private Image healthFill;
+    private void OnEnable()
     {
-        currentHealth = health.CurrentHealth;
+        health.OnHealthChanged += UpdateHealth;
+    }
+    public void UpdateHealth()
+    {
         maxHealth = health.MaxHealth;
-        text.text = prefix + currentHealth + "/" + maxHealth;
+        currentHealth = health.CurrentHealth;
+        healthFill.fillAmount = (float)currentHealth / maxHealth;
     }
 
-    void Update()
-    {
-        if(currentHealth != health.CurrentHealth)
-        {
-            currentHealth = health.CurrentHealth;
-            text.text = prefix + currentHealth + "/" + maxHealth;
-        }
-    }
 }
