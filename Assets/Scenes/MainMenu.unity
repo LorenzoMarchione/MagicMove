@@ -148,7 +148,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1990964375}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -179,8 +179,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Just Another Knight
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: afb8ed835a689ea4f94d1e8319d03f99, type: 2}
-  m_sharedMaterial: {fileID: 5702519728401252396, guid: afb8ed835a689ea4f94d1e8319d03f99, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -267,7 +267,7 @@ Animator:
   m_GameObject: {fileID: 40954194}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4a36e027535d57948bd913972bd90b0d, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2643bb93215a9a445ac398e05373ab73, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -840,7 +840,7 @@ Transform:
   m_GameObject: {fileID: 463284167}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -41.441, y: -2.94, z: 0}
+  m_LocalPosition: {x: 0, y: -2.94, z: 0}
   m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -895,12 +895,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 9075cf624b5a6454bae8ff8dfa0f14c9, type: 3}
+  m_Sprite: {fileID: -2574332189643168286, guid: a3c7c3ed9a77df54fb5d2e52654157b5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 56.04562, y: 0.9375}
+  m_Size: {x: 100, y: 0.9375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -964,15 +964,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: Start Game
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: afb8ed835a689ea4f94d1e8319d03f99, type: 2}
-  m_sharedMaterial: {fileID: 5702519728401252396, guid: afb8ed835a689ea4f94d1e8319d03f99, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: a48e9a8fa622d6049b293f7716158a12, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4285751101
-  m_fontColor: {r: 0.2397792, g: 0.3719084, b: 0.4490565, a: 1}
+    rgba: 4281479730
+  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1094,6 +1094,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 739fba6db30e491449f531f076f98ff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Credits
+  panel: {fileID: 1217353225}
 --- !u!114 &500745448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1410,15 +1411,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: Credits
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: afb8ed835a689ea4f94d1e8319d03f99, type: 2}
-  m_sharedMaterial: {fileID: 5702519728401252396, guid: afb8ed835a689ea4f94d1e8319d03f99, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: a48e9a8fa622d6049b293f7716158a12, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4285751101
-  m_fontColor: {r: 0.2385, g: 0.37245002, b: 0.45, a: 1}
+    rgba: 4281479730
+  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1753,9 +1754,9 @@ GameObject:
   - component: {fileID: 927335857}
   - component: {fileID: 927335856}
   - component: {fileID: 927335855}
-  - component: {fileID: 927335858}
+  - component: {fileID: 927335854}
   m_Layer: 5
-  m_Name: ButtonStart
+  m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1781,6 +1782,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -100}
   m_SizeDelta: {x: 520, y: 140}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &927335854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927335852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fbc9f20c44a52c458d0a80b03429751, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneChanger
+  sceneToLoad: Room2
 --- !u!114 &927335855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1825,9 +1839,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 927335858}
+      - m_Target: {fileID: 927335854}
         m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
-        m_MethodName: ChangeSceneNow
+        m_MethodName: ChengeSceneNow
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1857,7 +1871,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2daba2513a94bc649a5ed9c922e18ff2, type: 3}
+  m_Sprite: {fileID: 8167623969301648927, guid: 13f50309dc458f94fae267079c19dc13, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1875,19 +1889,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 927335852}
   m_CullTransparentMesh: 1
---- !u!114 &927335858
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 927335852}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40cdc7fd6875b104aa78c5baaa206937, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SceneChanger
-  sceneToLoad: Room1
 --- !u!1 &1041032171
 GameObject:
   m_ObjectHideFlags: 0
@@ -1915,7 +1916,7 @@ Animator:
   m_GameObject: {fileID: 1041032171}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 75c640bdf6769b4489e7937362d9e594, type: 2}
+  m_Controller: {fileID: 9100000, guid: 40a908503b19f2b4998a8cac1b9b18c7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2302,8 +2303,9 @@ GameObject:
   - component: {fileID: 1409866928}
   - component: {fileID: 1409866927}
   - component: {fileID: 1409866926}
+  - component: {fileID: 1409866929}
   m_Layer: 5
-  m_Name: ButtonCredits
+  m_Name: Button (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2373,7 +2375,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1409866929}
         m_TargetAssemblyTypeName: Credits, Assembly-CSharp
         m_MethodName: OnClickCredits
         m_Mode: 1
@@ -2405,7 +2407,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2daba2513a94bc649a5ed9c922e18ff2, type: 3}
+  m_Sprite: {fileID: 8167623969301648927, guid: 13f50309dc458f94fae267079c19dc13, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2423,6 +2425,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1409866923}
   m_CullTransparentMesh: 1
+--- !u!114 &1409866929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1409866923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 739fba6db30e491449f531f076f98ff9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Credits
+  panel: {fileID: 1217353225}
 --- !u!1 &1433503150
 GameObject:
   m_ObjectHideFlags: 0
@@ -2847,7 +2862,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 2f6a4153d08452f4a9fe472972be5740, type: 3}
+  m_Sprite: {fileID: -4824814612109983033, guid: da3adf0ff85b243408ff5532f6d686d3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2898,7 +2913,7 @@ Transform:
   m_GameObject: {fileID: 1627959476}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -43.0138, y: 0, z: 0}
+  m_LocalPosition: {x: -5.3, y: 0, z: 0}
   m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -2953,12 +2968,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -5
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 9075cf624b5a6454bae8ff8dfa0f14c9, type: 3}
+  m_Sprite: {fileID: -2574332189643168286, guid: a3c7c3ed9a77df54fb5d2e52654157b5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 51.90424, y: 0.9375}
+  m_Size: {x: 100, y: 0.9375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -3494,12 +3509,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 02ffbf1a01526c34e985db46789034d9, type: 3}
+  m_Sprite: {fileID: 3571915057322279487, guid: b4db13cd91da43c40a25d45f8745553c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 20, y: 11.25}
+  m_Size: {x: 10, y: 5.625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

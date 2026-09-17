@@ -8,6 +8,8 @@ public class Health : MonoBehaviour
 
     [SerializeField] private int maxHealth;
     [SerializeField] private int currentHealth;
+    public int MaxHealth => maxHealth;
+    public int CurrentHealth => currentHealth;
 
     public void Start()
     {
